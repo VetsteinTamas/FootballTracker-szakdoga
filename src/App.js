@@ -1,24 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router } from "react-router-dom";
+import Nav from "./components/Nav";
+import MainPage from "./pages/MainPage";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faBrain, faFutbol, faHouse, faList, faNoteSticky, faPercent, faUserPen, faUtensils } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faHouse, faNoteSticky, faBrain,faFutbol,faUtensils,faUserPen,faPercent,faList);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Nav />
+      <MainPage />
+    </Router>
   );
 }
 
