@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import Footer from "../components/Footer";
 
 const MainPage = () => {
   return (
@@ -33,7 +34,10 @@ const MainPage = () => {
           </div>
         </div>
       </section>
-      <section className="features">
+      <a href="#features" class="scroll">
+        <div class="scroll__icon click"></div>
+      </a>
+      <section className="features" id="features">
         <div className="container">
           <div className="row row__column">
             <h3 className="blue feature__minititle">Jellemzők</h3>
@@ -112,6 +116,54 @@ const MainPage = () => {
           </div>
         </div>
       </section>
+      <section className="steps">
+        <div className="container">
+          <div className="row">
+            <div className="steps__img--container">
+              <img
+                src="https://officialpsds.com/imageview/rp/6v/rp6vkq_large.png?1521316471"
+                alt=""
+                className="area__img step__img"
+              />
+            </div>
+            <div className="steps__textarea">
+              <h3 className="steps__smalltitle blue">Lépések</h3>
+              <h1 className="steps__title">
+                Könnyű <span className="blue">belekezdeni.</span>
+              </h1>
+              <div className="step">
+                <span className="number">01</span>
+                <div className="feature__text">
+                  <h2 className="features__title">Regisztráció</h2>
+                  <h4 className="features__para">
+                    Hozz létre profilt akár Google vagy Facebook segítségével.
+                  </h4>
+                </div>
+              </div>
+              <div className="step">
+                <span className="number">02</span>
+                <div className="feature__text">
+                  <h2 className="features__title">Egyéni információk</h2>
+                  <h4 className="features__para">
+                    Adj meg magadról pár infót, amely segítségével hozzád
+                    szabhatjuk a terveket.
+                  </h4>
+                </div>
+              </div>
+              <div className="step">
+                <span className="number">03</span>
+                <div className="feature__text">
+                  <h2 className="features__title">Mehet az edzés</h2>
+                  <h4 className="features__para">
+                    Kövesd edzésterveid, és érd el a céljaid.
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <Footer />
     </>
   );
 };
