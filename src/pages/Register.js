@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
@@ -10,7 +11,9 @@ const Register = () => {
               Üdvözöllek. Csak néhány gyors kérdés, hogy személyre szabhassuk a
               FootballTrackert neked.
             </h1>
-            <button className="btn__register">Folytatás</button>
+            <Link to="/registerdetails">
+              <button className="btn__register">Folytatás</button>
+            </Link>
           </form>
         </div>
       </div>

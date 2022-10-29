@@ -1,6 +1,48 @@
-import React from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import app from "../firebase";
+import UserinfoDataService from "../services/users.services.js";
 
 const RegisterInfo = () => {
+  const history = useHistory();
+  const auth = getAuth(app);
+
+  /* LOCALSTORAGE */
+  let time = localStorage.getItem("time");
+  let position = localStorage.getItem("position");
+  let weight = localStorage.getItem("weight");
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const newUserinfo = {
+    time,
+    position,
+    weight,
+  };
+
+  console.log(newUserinfo);
+  console.log(UserinfoDataService);
+
+  const signUp = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        localStorage.setItem("loggedIn", true);
+        localStorage.setItem("loggedInUser", email);
+        history.push("/");
+      })
+      .catch((error) => {
+        /* const errorCode = error.code; */
+        const errorMessage = error.message;
+        // ..
+      });
+    UserinfoDataService.setUserinfo(email, newUserinfo);
+  };
+
   return (
     <div className="container container__register">
       <div className="row row__register">
@@ -26,10 +68,24 @@ const RegisterInfo = () => {
               </div>
             </div>
           </div>
-          <form action="" className="register__form--right">
-            <p className="quick__title">Regisztáció emailel és jelszóval</p>
-            <input type="text" id="username" />
-          </form>
+          <div className="register__form--right">
+            <p className="quick__title">Regisztráció</p>
+            <input
+              type="text"
+              placeholder="Email"
+              className="registration__input"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Jelszó"
+              className="registration__input"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={signUp} className="registration__button">
+              Regisztáció
+            </button>
+          </div>
         </div>
       </div>
     </div>

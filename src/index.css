@@ -12,6 +12,99 @@ body {
   background-color: rgb(230, 227, 227);
 }
 
+.bold {
+  font-weight: 700;
+}
+
+.link__fixer {
+  text-decoration: none;
+  color: black;
+}
+
+/*
+
+chart
+
+*/
+
+:root {
+  --chart-size: 180px;
+  --color-background: #1d1e22;
+  --color-label: #f9f9f9;
+  --color-a: #8f44fd;
+  --color-b: #dc44fc;
+  --color-c: rgba(255, 255, 255, 0.1);
+  --font-size: 20px;
+  --font-family: "Poppins";
+  --pie-a: 20%;
+  --pie-b: 35%;
+  --pie-c: 45%;
+  --donut-size: 90%;
+}
+.css-pie,
+.css-donut {
+  position: relative;
+  width: var(--chart-size);
+  height: var(--chart-size);
+  border-radius: 100%;
+}
+.css-pie div,
+.css-donut div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+}
+.css-pie div:nth-of-type(1),
+.css-donut div:nth-of-type(1) {
+  background: conic-gradient(
+    var(--color-a) 0 var(--pie-a),
+    transparent var(--pie-a) 100%
+  );
+}
+.css-pie div:nth-of-type(2),
+.css-donut div:nth-of-type(2) {
+  background: conic-gradient(
+    transparent 0 var(--pie-a),
+    var(--color-b) var(--pie-a) calc(var(--pie-a) + calc(var(--pie-b))),
+    transparent calc(var(--pie-a) + calc(var(--pie-b))) 100%
+  );
+}
+.css-pie div:nth-of-type(3),
+.css-donut div:nth-of-type(3) {
+  background: conic-gradient(
+    transparent 0 calc(var(--pie-a) + var(--pie-b)),
+    var(--color-c) calc(var(--pie-a) + var(--pie-b)) 100%
+  );
+}
+.css-donut::after {
+  content: attr(data-label);
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: var(--donut-size);
+  height: var(--donut-size);
+  transform: translate(-50%, -50%);
+  border-radius: inherit;
+  background: var(--color-background);
+  color: var(--color-label);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+}
+
+.css-pie {
+  --chart-size: 48px;
+  --color-a: rgb(51, 51, 151);
+  --color-b: white;
+  --pie-a: 17.5%;
+  --pie-b: 82.5%;
+}
+
 /*
 
 NAV
@@ -41,6 +134,8 @@ nav {
 
 .nav__item {
   list-style-type: none;
+  cursor: pointer;
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,6 +158,7 @@ nav {
   color: white;
   padding: 12px;
   border-radius: 20px;
+  text-decoration: none;
 }
 
 /*
@@ -403,6 +499,7 @@ REGISTER
   border-radius: 30px;
   background: #d2d0d0;
   display: flex;
+  align-items: center;
   justify-content: center;
   box-shadow: 20px 20px 60px #595858, -20px -20px 60px #ffffff;
 }
@@ -457,10 +554,11 @@ select {
   padding: 12px;
   border-radius: 20px;
   margin-top: 12px;
+  width: 50%;
 }
 
 .quick__title {
-  font-size: 20px;
+  font-size: 32px;
   text-align: center;
   font-weight: 700;
 }
@@ -481,4 +579,642 @@ select {
 .quick__icon {
   height: 40px;
   width: 40px;
+}
+
+.registration__input {
+  width: 70%;
+  margin: 16px 24px;
+  padding: 12px 24px;
+  text-align: center;
+  border: 1px solid #14143c;
+  border-radius: 4px;
+  background: #d6d1d1;
+  box-shadow: 5px 5px 10px #9c9999, -5px -5px 10px #ffffff;
+}
+
+.registration__button {
+  cursor: pointer;
+  padding: 12px 24px;
+  margin-top: 20px;
+  width: 30%;
+  border: 1px solid #14143c;
+  border-radius: 4px;
+  background: #d6d1d1;
+  box-shadow: 5px 5px 10px #9c9999, -5px -5px 10px #ffffff;
+}
+
+/*
+
+DASHBOARD
+
+*/
+
+.container__dash {
+  padding: 20px 0;
+  min-height: 70vh;
+}
+
+.menu {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu__user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.menu__icon {
+  width: 30%;
+}
+
+.menu__para {
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.menu__title {
+  font-size: 20px;
+  margin: 6px 0;
+  font-weight: 700;
+}
+
+.menu__items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.menu__item {
+  margin-bottom: 20px;
+  font-size: 18px;
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.menu__item:hover {
+  color: rgb(51, 51, 151);
+}
+
+.menu__fonticon {
+  margin-right: 12px;
+}
+
+.menu__low {
+  margin-top: 60px;
+  font-size: 14px;
+  color: gray;
+}
+
+.statistics {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.summary {
+  width: 98%;
+  height: 20%;
+  background: rgba(214, 209, 209, 0.75);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  margin: 20px 0 20px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.summary__icons {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.summary__icon {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100px;
+  text-align: center;
+}
+
+.pie__number {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 6px;
+  width: 100%;
+}
+
+.pie__number1:after {
+  content: "Edzésterv teljesítve";
+}
+
+.summary__icon:hover .pie__number1:after {
+  font-size: 24px;
+  content: "30%";
+}
+
+.pie__number--container {
+  width: 100px;
+}
+
+.pie__number2:after {
+  content: "Meccs lejátszva";
+}
+
+.summary__icon:hover .pie__number2:after {
+  font-size: 24px;
+  content: "30%";
+}
+
+.pie__number3:after {
+  content: "Étrend betartva";
+}
+
+.summary__icon:hover .pie__number3:after {
+  font-size: 24px;
+  content: "30%";
+}
+
+.pie__number4:after {
+  content: "Motiváció megtekintve";
+}
+
+.summary__icon:hover .pie__number4:after {
+  font-size: 24px;
+  content: "30%";
+}
+
+.pie__number5:after {
+  content: "Kalóriacél elérve";
+}
+
+.summary__icon:hover .pie__number5:after {
+  font-size: 24px;
+  content: "30%";
+}
+
+.rating {
+  font-size: 30px;
+}
+
+.rating__icon {
+  color: #2e2e88;
+}
+
+.summary__rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  border-left: 1px solid black;
+}
+
+.todo__and__next {
+  width: 100%;
+  display: flex;
+}
+
+.todo {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 370px;
+}
+
+.todo__list {
+  margin: 12px 0;
+  width: 95%;
+  border-radius: 20px;
+  background: rgba(214, 209, 209, 0.75);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.todo__title--container {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #3737a2;
+}
+
+.todo__list--ul {
+  width: 90%;
+}
+
+.todo__title {
+  padding: 12px 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.todo__item {
+  list-style-type: none;
+  margin: 8px 0;
+  border-bottom: 2px solid #3737a2;
+  padding-bottom: 12px;
+}
+
+.todo__item--header {
+  display: flex;
+  margin: 6px 0;
+  justify-content: space-between;
+}
+
+.todo__icon {
+  font-size: 26px;
+}
+
+.next {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 370px;
+  border-radius: 20px;
+  background: rgba(214, 209, 209, 0.75);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.next__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.next__nav {
+  width: 100%;
+  height: 30px;
+  padding: 24px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.suggestion__title--container {
+  margin: 0 12px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.suggestion__title {
+  font-size: 16px;
+  color: white;
+  font-weight: 500;
+  background: rgba(55, 55, 162, 1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(9.5px);
+  -webkit-backdrop-filter: blur(9.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 6px 12px;
+}
+
+.suggestion__description--container {
+  margin: 12px;
+}
+
+.suggestion__list {
+  margin: 0 12px;
+}
+
+.suggestion__item {
+  list-style-type: none;
+}
+
+.suggestion__button {
+  padding: 12px 0;
+}
+
+.suggestion__footer {
+  background-color: gray;
+  margin: 0;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms ease;
+  cursor: pointer;
+}
+.suggestion__footer:hover {
+  background-color: rgb(51, 51, 151);
+}
+
+.navigate__icon {
+  cursor: pointer;
+}
+
+/*
+
+training plans
+
+*/
+
+#plan {
+  background: rgba(253, 253, 253, 0.9);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: black;
+  margin-left: 12px;
+  padding: 6px;
+}
+
+.plans {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 90%;
+}
+
+.plans__container {
+  height: 100%;
+  background: rgba(51, 51, 151, 0.9);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: white;
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.plan {
+  width: 30%;
+  margin: 12px;
+  padding: 12px;
+  border-radius: 21px;
+  border: 1px solid white;
+  background: #333397;
+  box-shadow: 5px 5px 10px #14143c, -5px -5px 10px #5252f2;
+  display: flex;
+  flex-direction: column;
+  transition: all 400ms ease;
+}
+
+.plan:hover {
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+.plans__footer {
+  width: 100%;
+  margin: 12px 0;
+  padding: 0 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.plan__title--container {
+  display: flex;
+  align-items: center;
+}
+
+.plan__icon {
+  margin-right: 12px;
+}
+
+.plan__title {
+  font-size: 14px;
+}
+
+.plan__description {
+  margin-top: 6px;
+}
+
+.plan__details {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.plan__detail {
+  width: 45%;
+  display: flex;
+  margin: 12px 0px;
+  align-items: center;
+}
+
+/*
+
+egyéni training plan
+
+*/
+
+.training__plan--container {
+  height: 100%;
+  background: rgba(51, 51, 151, 0.9);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: white;
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.training__plan-title--container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px 12px 16px;
+  border-bottom: 2px solid white;
+}
+
+.training__plan--title {
+  font-size: 24px;
+}
+
+.training__plan--left,
+.training__plan--right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#done {
+  margin-right: 16px;
+  height: 30px;
+  width: 30px;
+}
+
+.training__plan-description--container {
+  display: flex;
+  padding: 12px;
+  height: 100%;
+}
+
+.training__plan-description--text {
+  width: 60%;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.training__plan-description--icons {
+  width: 40%;
+  height: 100%;
+  margin-left: 20px;
+  padding: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  color: black;
+  border-radius: 12px;
+  background-color: rgb(255, 255, 255);
+}
+
+.training__plan--icon {
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 45%;
+  border-radius: 12px;
+  transition: all 150ms ease;
+}
+
+.training__plan--icon:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+.plan__icon {
+  font-size: 48px;
+}
+
+.icon__title {
+  font-size: 32px;
+  text-align: center;
+}
+
+.training__plan-description--stats {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 100%;
+}
+
+.stat {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+}
+
+.stat__icon {
+  margin-right: 12px;
+  font-size: 32px;
+}
+
+/*
+
+Motivation
+
+*/
+
+.motivation__container {
+  height: 100%;
+  background: rgba(51, 51, 151, 0.9);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: white;
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.motivation__title--container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid white;
+}
+
+.motivation__title--left,
+.motivation__title--right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.motivation__description--container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.yt__video {
+  margin-top: 20px;
+}
+
+.video__title--container {
+  display: flex;
+  width: 100%;
+  padding: 0px 36px;
+  justify-content: space-between;
+}
+
+.video__title--left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video__title--checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

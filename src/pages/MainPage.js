@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
 const MainPage = () => {
@@ -18,9 +19,16 @@ const MainPage = () => {
                   Vedd kezedbe a céljaid irányítását. Kövess nyomon
                   edzésterveket, motivációs tartalmakat és étrendeket.
                 </p>
-                <button className="btn">Kezd el még ma ingyen!</button>
+                <button className="btn">
+                  <Link to="/register" className="link__fixer">
+                    Kezd el még ma ingyen!
+                  </Link>
+                </button>
                 <p className="area__description">
-                  Van már profilod? <span className="blue">Jelentkezz be!</span>
+                  <Link to="/login" className="link__fixer">
+                    Van már profilod?{" "}
+                    <span className="blue">Jelentkezz be!</span>
+                  </Link>
                 </p>
               </div>
               <div className="area__right">
@@ -34,8 +42,8 @@ const MainPage = () => {
           </div>
         </div>
       </section>
-      <a href="#features" class="scroll">
-        <div class="scroll__icon click"></div>
+      <a href="#features" className="scroll">
+        <div className="scroll__icon click"></div>
       </a>
       <section className="features" id="features">
         <div className="container">
