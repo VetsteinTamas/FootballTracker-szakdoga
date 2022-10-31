@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 
 const TrainingDetails = () => {
@@ -9,7 +10,7 @@ const TrainingDetails = () => {
   return (
     <div className="container__dash">
       <div className="row dash__row">
-        <div className="menu">
+      <div className="menu">
           <div className="menu__user">
             <img
               src="https://avatars.githubusercontent.com/u/4262050?v=4"
@@ -26,28 +27,38 @@ const TrainingDetails = () => {
                   icon="fa-solid fa-bars"
                   className="menu__fonticon"
                 />
-                Összegzés
+                <Link to="/dashboard" className="link">
+                  Összegzés
+                </Link>
               </li>
               <li className="menu__item">
-                <FontAwesomeIcon
-                  icon="fa-solid fa-person-running"
-                  className="menu__fonticon"
-                />
-                Edzéstervek
+                <span className="blue">
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-person-running"
+                    className="menu__fonticon"
+                  />
+                  <Link to="/dashboard/training" className="link">
+                    Edzéstervek
+                  </Link>
+                </span>
               </li>
               <li className="menu__item">
                 <FontAwesomeIcon
                   icon="fa-solid fa-utensils"
                   className="menu__fonticon"
                 />
-                Étrend
+                <Link to="/dashboard/meal" className="link">
+                  Étrend
+                </Link>
               </li>
               <li className="menu__item">
-                <FontAwesomeIcon
-                  icon="fa-solid fa-brain"
+              <FontAwesomeIcon
+                  icon="fa-solid fa-clipboard"
                   className="menu__fonticon"
                 />
-                Motiváció
+                <Link to="/dashboard/todo" className="link">
+                  TO-DO lista
+                </Link>
               </li>
             </ul>
             <p className="menu__low">

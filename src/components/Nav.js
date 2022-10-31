@@ -14,8 +14,6 @@ const Nav = () => {
     history.push("/");
   };
 
-  console.log(loggedIn, typeof loggedIn);
-
   return (
     <nav>
       <div className="nav__container">

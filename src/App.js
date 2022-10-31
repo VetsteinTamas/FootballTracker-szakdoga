@@ -10,6 +10,7 @@ import {
   faBars,
   faBrain,
   faCircle,
+  faClipboard,
   faClock,
   faCrosshairs,
   faFaceSadTear,
@@ -23,6 +24,7 @@ import {
   faNoteSticky,
   faPercent,
   faPersonRunning,
+  faPlus,
   faRightToBracket,
   faSquarePollVertical,
   faUserPen,
@@ -33,7 +35,11 @@ import RegisterDetails from "./pages/RegisterDetails";
 import RegisterInfo from "./pages/RegisterInfo";
 import Dashboard from "./pages/Dashboard";
 import TrainingDetails from "./components/TrainingDetails";
-import Motivation from "./components/Motivation";
+import Trainingplan from "./components/Trainingplan";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebase.js";
+import { useEffect, useState } from "react";
+import ToDo from "./components/ToDo";
 
 library.add(
   faHouse,
@@ -53,6 +59,8 @@ library.add(
   faClock,
   faLocationDot,
   faCrosshairs,
+  faPlus,
+  faClipboard,
   faSquarePollVertical,
   faFire,
   faRightToBracket,
@@ -63,6 +71,37 @@ library.add(
 );
 
 function App() {
+  /* TRAINING PLANS */
+  const [trainings, setTrainings] = useState([]);
+
+  const fetchTrainings = async () => {
+    await getDocs(collection(db, "trainings")).then((querySnapshot) => {
+      const newData = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setTrainings(newData);
+    });
+  };
+
+  /* TO DOS */
+  const [todo, setTodo] = useState([]);
+
+  const fetchTodos = async () => {
+    await getDocs(collection(db, "todo")).then((querySnapshot) => {
+      const newData = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setTodo(newData);
+    });
+  };
+
+  useEffect(() => {
+    fetchTrainings();
+    fetchTodos();
+  }, []);
+
   return (
     <Router>
       <Nav />
@@ -72,12 +111,17 @@ function App() {
       <Route path="/registerdetails" component={RegisterDetails} exact />
       <Route path="/registerinfo" component={RegisterInfo} exact />
       <Route path="/dashboard" component={Dashboard} exact />
+      <Route path="/dashboard/training" exact>
+        <Trainingplan trainings={trainings} />
+      </Route>
       <Route
         path="/dashboard/training/detail"
         component={TrainingDetails}
         exact
       />
-      <Route path="/dashboard/motivation" component={Motivation} exact />
+      <Route path="/dashboard/todo" exact>
+        <ToDo todo={todo} />
+      </Route>
     </Router>
   );
 }
