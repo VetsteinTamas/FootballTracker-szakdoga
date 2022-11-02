@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import DashboardHome from "../components/DashboardHome";
 import { Link } from "react-router-dom";
 
-const Dashboard = () => {
+const Dashboard = ({ todo }) => {
   const user = localStorage.getItem("loggedInUser");
 
   return (
@@ -70,7 +70,7 @@ const Dashboard = () => {
             </p>
           </div>
         </div>
-        <DashboardHome />
+        <DashboardHome todo={todo} />
       </div>
     </div>
   );

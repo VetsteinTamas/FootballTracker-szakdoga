@@ -1,16 +1,31 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { doc, updateDoc } from "firebase/firestore";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { db } from "../firebase";
 
-
-const TrainingDetails = () => {
+const TrainingDetails = ({ trainings }) => {
   const user = localStorage.getItem("loggedInUser");
+  const { id } = useParams();
 
-  
+  const [isDone, setIsDone] = useState(trainings[id].done);
+  console.log(trainings[id].done);
+  const trainingDoc = doc(db, "trainings", trainings[id].id);
+  const handleDone = () => {
+    console.log(isDone);
+    setIsDone(!isDone);
+    console.log(isDone);
+    /* await updateDoc(trainingDoc, {
+      done: isDone,
+    }); */
+  };
+  console.log(trainings[id].done);
 
+  console.log(trainings[id]);
   return (
     <div className="container__dash">
       <div className="row dash__row">
-      <div className="menu">
+        <div className="menu">
           <div className="menu__user">
             <img
               src="https://avatars.githubusercontent.com/u/4262050?v=4"
@@ -52,7 +67,7 @@ const TrainingDetails = () => {
                 </Link>
               </li>
               <li className="menu__item">
-              <FontAwesomeIcon
+                <FontAwesomeIcon
                   icon="fa-solid fa-clipboard"
                   className="menu__fonticon"
                 />
@@ -83,30 +98,29 @@ const TrainingDetails = () => {
                   icon="fa-solid fa-angle-right"
                   className="plan__icon"
                 />
-                <h1 className="training__plan--title">2/3 Sprint</h1>
+                <h1 className="training__plan--title">{trainings[id].name}</h1>
               </div>
               <div className="training__plan--right">
-                <input type="checkbox" name="done" id="done" />
+                <input
+                  type="checkbox"
+                  name="done"
+                  id="done"
+                  onChange={handleDone}
+                  checked={isDone ? true : false}
+                />
                 <h1 className="training__plan--title">Megjelölve mint kész</h1>
               </div>
             </div>
             <div className="training__plan-description--container">
               <div className="training__plan-description--text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Perspiciatis magni labore eaque laudantium quidem nobis! Qui
-                velit culpa, sint minus ratione, minima atque quis alias
-                deserunt odit numquam, veritatis inventore. Lorem ipsum dolor
-                sit amet consectetur adipisicing elit. Commodi sunt deserunt et
-                earum. Temporibus, recusandae! Voluptas laboriosam sunt velit?
-                Iste alias aperiam explicabo et incidunt, error doloribus
-                expedita ratione natus!
+                {trainings[id].description}
                 <div className="training__plan-description--stats">
                   <div className="stat">
                     <FontAwesomeIcon
                       icon="fa-solid fa-fire"
                       className="stat__icon"
                     />
-                    625 kalória
+                    {trainings[id].calorie}kalória
                   </div>
                   <div className="stat">
                     <FontAwesomeIcon
@@ -123,28 +137,28 @@ const TrainingDetails = () => {
                     icon="fa-solid fa-clock"
                     className="plan__icon"
                   />
-                  <p className="icon__title">30 perc</p>
+                  <p className="icon__title">{trainings[id].duration} perc</p>
                 </div>
                 <div className="training__plan--icon">
                   <FontAwesomeIcon
                     icon="fa-solid fa-location-dot"
                     className="plan__icon"
                   />
-                  <p className="icon__title">Egyenes talaj</p>
+                  <p className="icon__title">{trainings[id].location}</p>
                 </div>
                 <div className="training__plan--icon">
                   <FontAwesomeIcon
                     icon="fa-solid fa-crosshairs"
                     className="plan__icon"
                   />
-                  <p className="icon__title">Szélső</p>
+                  <p className="icon__title">{trainings[id].position}</p>
                 </div>
                 <div className="training__plan--icon">
                   <FontAwesomeIcon
                     icon="fa-solid fa-square-poll-vertical"
                     className="plan__icon"
                   />
-                  <p className="icon__title">Haladó</p>
+                  <p className="icon__title">{trainings[id].difficulty}</p>
                 </div>
               </div>
             </div>

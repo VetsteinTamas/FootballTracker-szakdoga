@@ -76,55 +76,64 @@ const Trainingplan = ({ trainings }) => {
               </option>
             </select>
             <div className="plans">
-              {trainings.map((training) => {
+              {trainings.map((training, index) => {
+                console.log(index);
                 return (
                   <div className="plan">
-                    <div className="plan__title--container">
-                      <FontAwesomeIcon
-                        icon="fa-solid fa-circle"
-                        className="plan__icon"
-                      />
-                      <h3 className="plan__title">{training.name}</h3>
-                    </div>
-                    <div className="plan__description--container">
-                      {/* TODO SPLICEOLNI SZÖVEGET */}
-                      <p className="plan__description">
-                        {training.description.slice(0, 60) + "..."}
-                      </p>
-                      <div className="plan__details">
-                        <div className="plan__detail">
-                          <FontAwesomeIcon
-                            icon="fa-solid fa-angle-right"
-                            className="plan__icon"
-                          />
-                          <h3 className="plan__title">{training.difficulty}</h3>
-                        </div>
-                        <div className="plan__detail">
-                          <FontAwesomeIcon
-                            icon="fa-solid fa-angle-right"
-                            className="plan__icon"
-                          />
-                          <h3 className="plan__title">{training.location}</h3>
-                        </div>
-                        <div className="plan__detail">
-                          <FontAwesomeIcon
-                            icon="fa-solid fa-angle-right"
-                            className="plan__icon"
-                          />
-                          <h3 className="plan__title">{training.position}</h3>
-                        </div>
-                        <div className="plan__detail">
-                          <FontAwesomeIcon
-                            icon="fa-solid fa-angle-right"
-                            className="plan__icon"
-                          />
-                          <h3 className="plan__title">30 perc</h3>
+                    <Link
+                      to={`/dashboard/training/${JSON.stringify(index)}`}
+                      className="link"
+                    >
+                      <div className="plan__title--container">
+                        <FontAwesomeIcon
+                          icon="fa-solid fa-circle"
+                          className="plan__icon"
+                        />
+                        <h3 className="plan__title">{training.name}</h3>
+                      </div>
+                      <div className="plan__description--container">
+                        {/* TODO SPLICEOLNI SZÖVEGET */}
+                        <p className="plan__description">
+                          {training.description.slice(0, 60) + "..."}
+                        </p>
+                        <div className="plan__details">
+                          <div className="plan__detail">
+                            <FontAwesomeIcon
+                              icon="fa-solid fa-angle-right"
+                              className="plan__icon"
+                            />
+                            <h3 className="plan__title">
+                              {training.difficulty}
+                            </h3>
+                          </div>
+                          <div className="plan__detail">
+                            <FontAwesomeIcon
+                              icon="fa-solid fa-angle-right"
+                              className="plan__icon"
+                            />
+                            <h3 className="plan__title">{training.location}</h3>
+                          </div>
+                          <div className="plan__detail">
+                            <FontAwesomeIcon
+                              icon="fa-solid fa-angle-right"
+                              className="plan__icon"
+                            />
+                            <h3 className="plan__title">{training.position}</h3>
+                          </div>
+                          <div className="plan__detail">
+                            <FontAwesomeIcon
+                              icon="fa-solid fa-angle-right"
+                              className="plan__icon"
+                            />
+                            <h3 className="plan__title">30 perc</h3>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   </div>
                 );
               })}
+              ;
             </div>
             <div className="plans__footer">
               <FontAwesomeIcon icon="fa-solid fa-backward" />

@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Link } from "react-router-dom";
 
-const DashboardHome = () => {
+const DashboardHome = ({ todo }) => {
   return (
     <div className="statistics">
       <div className="summary">
@@ -58,48 +59,40 @@ const DashboardHome = () => {
           <div className="todo__list">
             <div className="todo__title--container">
               <p className="todo__title">TO-DO Lista</p>
-              <FontAwesomeIcon
-                icon="fa-solid fa-right-to-bracket"
-                className="todo__icon navigate__icon"
-              />
+              <Link to="/dashboard/todo">
+                <FontAwesomeIcon
+                  icon="fa-solid fa-right-to-bracket"
+                  className="todo__icon navigate__icon"
+                />
+              </Link>
             </div>
             <ul className="todo__list--ul">
-              <div className="todo__item--header">
-                <span className="blue" style={{ fontWeight: 700 }}>
-                  1.
-                </span>
-                <span className="blue" style={{ fontWeight: 700 }}>
-                  {" "}
-                  2022/10/23
-                </span>
-              </div>
-              <li className="todo__item">
-                18:00 edzés Ásotthalmon, 5000 forint felszerelésre!
-              </li>
-              <div className="todo__item--header">
-                <span className="blue" style={{ fontWeight: 700 }}>
-                  2.
-                </span>
-                <span className="blue" style={{ fontWeight: 700 }}>
-                  {" "}
-                  2022/11/05
-                </span>
-              </div>
-              <li className="todo__item">
-                18:00 edzés Ásotthalmon, 5000 forint felszerelésre!
-              </li>
-              <div className="todo__item--header">
-                <span className="blue" style={{ fontWeight: 700 }}>
-                  3.
-                </span>
-                <span className="blue" style={{ fontWeight: 700 }}>
-                  {" "}
-                  2022/12/12
-                </span>
-              </div>
-              <li className="todo__item">
-                18:00 edzés Ásotthalmon, 5000 forint felszerelésre!
-              </li>
+              {todo.slice(0, 3).map((element) => {
+                let month = element.time.toDate().getUTCMonth() + 1; //months from 1-12
+                let day = element.time.toDate().getUTCDate();
+                let year = element.time.toDate().getUTCFullYear();
+                let hour = element.time.toDate().getHours();
+                let minutes = element.time.toDate().getMinutes();
+                if (minutes == 0) {
+                  minutes = `00`;
+                } else if (minutes < 10) {
+                  minutes = "0" + minutes.toString();
+                }
+
+                return (
+                  <>
+                    <div className="todo__item--header">
+                      <span className="blue" style={{ fontWeight: 700 }}>
+                        {element.type}
+                      </span>
+                      <span className="blue" style={{ fontWeight: 700 }}>
+                        {year}/{month}/{day} {hour}:{minutes}
+                      </span>
+                    </div>
+                    <li className="todo__item">{element.name.slice(0, 30)}</li>
+                  </>
+                );
+              })}
             </ul>
           </div>
         </div>

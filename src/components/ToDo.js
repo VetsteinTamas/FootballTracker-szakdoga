@@ -1,18 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import Popup from "reactjs-popup";
 import { db } from "../firebase";
+import Modal from "./Modal";
 
 const ToDo = ({ todo }) => {
   const user = localStorage.getItem("loggedInUser");
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const deleteTodo = async (index) => {
     const todoDoc = doc(db, "todo", index);
     await deleteDoc(todoDoc);
     window.location.reload(false);
   };
-
   return (
     <div className="container__dash">
       <div className="row dash__row">
@@ -80,7 +84,7 @@ const ToDo = ({ todo }) => {
           <div className="plans__container">
             <div className="todo__header">
               <h1 className="todo__maintitle">TODO - lista</h1>
-              <h2 className="todo__add">
+              <h2 className="todo__add" onClick={() => setIsOpen(true)}>
                 <FontAwesomeIcon icon="fa-solid fa-plus" /> Új hozzáadása
               </h2>
             </div>
@@ -98,14 +102,15 @@ const ToDo = ({ todo }) => {
                   <div className="plan" style={{ cursor: "default" }}>
                     <div className="plan__title--container">
                       <h3 className="plan__title todo__smalltitle">
-                        {element.name}
+                        {element.type}
                       </h3>
+                      <p className="plan__title todo__smalltitle">
+                        {year}/{month}/{day} {hour}:{minutes}
+                      </p>
                     </div>
                     <div className="plan__description--container">
                       {/* TODO SPLICEOLNI SZÖVEGET */}
-                      <p className="date">
-                        Dátum: {year}/{month}/{day} {hour}:{minutes}
-                      </p>
+                      <p className="todo__desc">{element.name}</p>
                       <button
                         className="todo__btn"
                         onClick={() => {
@@ -122,6 +127,7 @@ const ToDo = ({ todo }) => {
           </div>
         </div>
       </div>
+      <Modal open={isOpen} onClose={() => setIsOpen(false)}></Modal>
     </div>
   );
 };

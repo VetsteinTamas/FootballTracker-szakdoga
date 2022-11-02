@@ -29,6 +29,7 @@ import {
   faSquarePollVertical,
   faUserPen,
   faUtensils,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Login from "./pages/Login";
 import RegisterDetails from "./pages/RegisterDetails";
@@ -66,6 +67,7 @@ library.add(
   faRightToBracket,
   faBackward,
   faForward,
+  faXmark,
   faCircle,
   faAngleRight
 );
@@ -98,8 +100,10 @@ function App() {
   };
 
   useEffect(() => {
+    console.log("hellookaaa");
     fetchTrainings();
     fetchTodos();
+    console.log(trainings, todo);
   }, []);
 
   return (
@@ -110,15 +114,15 @@ function App() {
       <Route path="/register" component={Register} exact />
       <Route path="/registerdetails" component={RegisterDetails} exact />
       <Route path="/registerinfo" component={RegisterInfo} exact />
-      <Route path="/dashboard" component={Dashboard} exact />
+      <Route path="/dashboard" exact>
+        <Dashboard todo={todo} />
+      </Route>
       <Route path="/dashboard/training" exact>
         <Trainingplan trainings={trainings} />
       </Route>
-      <Route
-        path="/dashboard/training/detail"
-        component={TrainingDetails}
-        exact
-      />
+      <Route path="/dashboard/training/:id" exact>
+        <TrainingDetails trainings={trainings} />
+      </Route>
       <Route path="/dashboard/todo" exact>
         <ToDo todo={todo} />
       </Route>
