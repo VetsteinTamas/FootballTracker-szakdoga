@@ -121,7 +121,7 @@ function App() {
         <Trainingplan trainings={trainings} />
       </Route>
       <Route path="/dashboard/training/:id" exact>
-        <TrainingDetails trainings={trainings} />
+        <TrainingDetails trainings={trainings} fetch={fetchTrainings} />
       </Route>
       <Route path="/dashboard/todo" exact>
         <ToDo todo={todo} />

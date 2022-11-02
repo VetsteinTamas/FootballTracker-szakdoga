@@ -1,23 +1,31 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { doc, updateDoc } from "firebase/firestore";
+import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../firebase";
 
-const TrainingDetails = ({ trainings }) => {
+const TrainingDetails = ({ trainings, fetch }) => {
   const user = localStorage.getItem("loggedInUser");
   const { id } = useParams();
+  const done = trainings[id].done;
 
-  const [isDone, setIsDone] = useState(trainings[id].done);
+  const [isDone, setIsDone] = useState(done);
   console.log(isDone);
   const trainingDoc = doc(db, "trainings", trainings[id].id);
   const handleDone = async () => {
     console.log(isDone);
     setIsDone(!isDone);
     await updateDoc(trainingDoc, {
-      done: isDone,
+      done: !isDone,
     });
+    console.log(isDone);
   };
+  console.log(isDone);
+
+  useEffect(() => {
+    fetch();
+  }, [isDone]);
 
   return (
     <div className="container__dash">
