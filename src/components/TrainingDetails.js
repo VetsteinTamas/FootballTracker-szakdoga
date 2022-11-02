@@ -9,19 +9,16 @@ const TrainingDetails = ({ trainings }) => {
   const { id } = useParams();
 
   const [isDone, setIsDone] = useState(trainings[id].done);
-  console.log(trainings[id].done);
+  console.log(isDone);
   const trainingDoc = doc(db, "trainings", trainings[id].id);
-  const handleDone = () => {
+  const handleDone = async () => {
     console.log(isDone);
     setIsDone(!isDone);
-    console.log(isDone);
-    /* await updateDoc(trainingDoc, {
+    await updateDoc(trainingDoc, {
       done: isDone,
-    }); */
+    });
   };
-  console.log(trainings[id].done);
 
-  console.log(trainings[id]);
   return (
     <div className="container__dash">
       <div className="row dash__row">
