@@ -960,7 +960,7 @@ training plans
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin: 6px 0;
+  margin-top: 20px;
 }
 
 .plans__container {
@@ -1320,4 +1320,74 @@ TODO
   color: white;
   font-size: 24px;
   cursor: pointer;
+}
+
+/* MEAL */
+
+.meal__title--container {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid white;
+}
+
+.meal__icon {
+  font-size: 32px;
+  margin-right: 12px;
+}
+.meal__main--container {
+  height: 100%;
+  display: flex;
+}
+
+.meal__add {
+  padding: 12px;
+  width: calc(100% / 3);
+  height: 100%;
+  border-right: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.meal__list {
+  justify-content: flex-start;
+}
+
+.meal__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.meal__subtitle {
+  border-bottom: 1px solid white;
+  margin-bottom: 20px;
+}
+.meal__btn {
+  margin-top: 30px;
+  padding: 6px 20px;
+  border-radius: 20px;
+}
+
+.meal__input {
+  margin-bottom: 12px;
+}
+
+.meal {
+  width: 100%;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.meal__data {
+  margin-bottom: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

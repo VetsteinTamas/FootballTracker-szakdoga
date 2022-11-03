@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../firebase";
 
-const TrainingDetails = ({ trainings, fetch }) => {
+const TrainingDetails = ({ trainings, fetchTrainings }) => {
   const user = localStorage.getItem("loggedInUser");
   const { id } = useParams();
   const done = trainings[id].done;
@@ -24,7 +24,7 @@ const TrainingDetails = ({ trainings, fetch }) => {
   console.log(isDone);
 
   useEffect(() => {
-    fetch();
+    fetchTrainings();
   }, [isDone]);
 
   return (

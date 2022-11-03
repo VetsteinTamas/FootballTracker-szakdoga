@@ -70,11 +70,6 @@ const Trainingplan = ({ trainings }) => {
         </div>
         <div className="statistics">
           <div className="plans__container">
-            <select name="plan" id="plan">
-              <option value="choose" disabled selected>
-                Válassz edzésterv csoportok közül...
-              </option>
-            </select>
             <div className="plans">
               {trainings.map((training, index) => {
                 console.log(index);
@@ -86,7 +81,7 @@ const Trainingplan = ({ trainings }) => {
                     >
                       <div className="plan__title--container">
                         <FontAwesomeIcon
-                          icon="fa-solid fa-circle"
+                          icon="fa-solid fa-person-running"
                           className="plan__icon"
                         />
                         <h3 className="plan__title">{training.name}</h3>

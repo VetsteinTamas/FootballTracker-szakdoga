@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addDoc, collection } from "firebase/firestore";
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { db } from "../firebase";
 
@@ -10,7 +9,8 @@ const Modal = ({ open, onClose }) => {
   const [date, setDate] = useState();
   const [type, setType] = useState("");
   const todoCollectionRef = collection(db, "todo");
-  const addTodo = async () => {
+  const addTodo = async (e) => {
+    e.preventDefault();
     let updatedDate = new Date(date);
     await addDoc(todoCollectionRef, {
       name: name,

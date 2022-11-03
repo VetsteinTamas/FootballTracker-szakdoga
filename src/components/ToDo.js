@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Popup from "reactjs-popup";
 import { db } from "../firebase";
 import Modal from "./Modal";
 
-const ToDo = ({ todo }) => {
+const ToDo = ({ todo, fetchTodos }) => {
+  console.log(todo);
   const user = localStorage.getItem("loggedInUser");
 
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,10 @@ const ToDo = ({ todo }) => {
     await deleteDoc(todoDoc);
     window.location.reload(false);
   };
+
+  useEffect(() => {
+    fetchTodos();
+  }, [todo]);
   return (
     <div className="container__dash">
       <div className="row dash__row">

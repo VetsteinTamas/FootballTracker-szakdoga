@@ -37,10 +37,11 @@ import RegisterInfo from "./pages/RegisterInfo";
 import Dashboard from "./pages/Dashboard";
 import TrainingDetails from "./components/TrainingDetails";
 import Trainingplan from "./components/Trainingplan";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "./firebase.js";
 import { useEffect, useState } from "react";
 import ToDo from "./components/ToDo";
+import Meal from "./components/Meal";
 
 library.add(
   faHouse,
@@ -76,15 +77,14 @@ function App() {
   /* TRAINING PLANS */
   const [trainings, setTrainings] = useState([]);
 
-  const fetchTrainings = async () => {
-    await getDocs(collection(db, "trainings")).then((querySnapshot) => {
-      const newData = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setTrainings(newData);
-    });
-  };
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "trainings"), (snapshot) =>
+        setTrainings(snapshot.docs.map((doc) => doc.data()))
+      ),
+    []
+  );
+  console.log(trainings);
 
   /* TO DOS */
   const [todo, setTodo] = useState([]);
@@ -99,13 +99,19 @@ function App() {
     });
   };
 
-  useEffect(() => {
-    console.log("hellookaaa");
-    fetchTrainings();
-    fetchTodos();
-    console.log(trainings, todo);
-  }, []);
+  /* MEALS */
 
+  const [meals, setMeals] = useState([]);
+
+  const fetchMeals = async () => {
+    await getDocs(collection(db, "meals")).then((querySnapshot) => {
+      const newData = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setMeals(newData);
+    });
+  };
   return (
     <Router>
       <Nav />
@@ -121,10 +127,13 @@ function App() {
         <Trainingplan trainings={trainings} />
       </Route>
       <Route path="/dashboard/training/:id" exact>
-        <TrainingDetails trainings={trainings} fetch={fetchTrainings} />
+        <TrainingDetails trainings={trainings} />
       </Route>
       <Route path="/dashboard/todo" exact>
         <ToDo todo={todo} />
+      </Route>
+      <Route path="/dashboard/meal">
+        <Meal meals={meals} />
       </Route>
     </Router>
   );
