@@ -28,90 +28,6 @@ body {
 
 /*
 
-chart
-
-*/
-
-:root {
-  --chart-size: 180px;
-  --color-background: #1d1e22;
-  --color-label: #f9f9f9;
-  --color-a: #8f44fd;
-  --color-b: #dc44fc;
-  --color-c: rgba(255, 255, 255, 0.1);
-  --font-size: 20px;
-  --font-family: "Poppins";
-  --pie-a: 20%;
-  --pie-b: 35%;
-  --pie-c: 45%;
-  --donut-size: 90%;
-}
-.css-pie,
-.css-donut {
-  position: relative;
-  width: var(--chart-size);
-  height: var(--chart-size);
-  border-radius: 100%;
-}
-.css-pie div,
-.css-donut div {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: inherit;
-  height: inherit;
-  border-radius: inherit;
-}
-.css-pie div:nth-of-type(1),
-.css-donut div:nth-of-type(1) {
-  background: conic-gradient(
-    var(--color-a) 0 var(--pie-a),
-    transparent var(--pie-a) 100%
-  );
-}
-.css-pie div:nth-of-type(2),
-.css-donut div:nth-of-type(2) {
-  background: conic-gradient(
-    transparent 0 var(--pie-a),
-    var(--color-b) var(--pie-a) calc(var(--pie-a) + calc(var(--pie-b))),
-    transparent calc(var(--pie-a) + calc(var(--pie-b))) 100%
-  );
-}
-.css-pie div:nth-of-type(3),
-.css-donut div:nth-of-type(3) {
-  background: conic-gradient(
-    transparent 0 calc(var(--pie-a) + var(--pie-b)),
-    var(--color-c) calc(var(--pie-a) + var(--pie-b)) 100%
-  );
-}
-.css-donut::after {
-  content: attr(data-label);
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  display: grid;
-  place-items: center;
-  width: var(--donut-size);
-  height: var(--donut-size);
-  transform: translate(-50%, -50%);
-  border-radius: inherit;
-  background: var(--color-background);
-  color: var(--color-label);
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-}
-
-.css-pie {
-  --chart-size: 48px;
-  --color-a: rgb(51, 51, 151);
-  --color-b: white;
-  --pie-a: 17.5%;
-  --pie-b: 82.5%;
-}
-
-/*
-
 NAV
 
 */
@@ -705,69 +621,21 @@ DASHBOARD
 }
 
 .summary__icon {
-  padding: 12px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  max-width: 100px;
+  max-width: 110px;
   text-align: center;
 }
 
-.pie__number {
-  font-size: 14px;
-  font-weight: 500;
-  margin-top: 6px;
-  width: 100%;
+.summary__icon--title {
+  font-size: 12px;
 }
 
-.pie__number1:after {
-  content: "Edzésterv teljesítve";
-}
-
-.summary__icon:hover .pie__number1:after {
-  font-size: 24px;
-  content: "30%";
-}
-
-.pie__number--container {
-  width: 100px;
-}
-
-.pie__number2:after {
-  content: "Meccs lejátszva";
-}
-
-.summary__icon:hover .pie__number2:after {
-  font-size: 24px;
-  content: "30%";
-}
-
-.pie__number3:after {
-  content: "Étrend betartva";
-}
-
-.summary__icon:hover .pie__number3:after {
-  font-size: 24px;
-  content: "30%";
-}
-
-.pie__number4:after {
-  content: "Motiváció megtekintve";
-}
-
-.summary__icon:hover .pie__number4:after {
-  font-size: 24px;
-  content: "30%";
-}
-
-.pie__number5:after {
-  content: "Kalóriacél elérve";
-}
-
-.summary__icon:hover .pie__number5:after {
-  font-size: 24px;
-  content: "30%";
+.progress {
+  padding: 8px;
 }
 
 .rating {
@@ -797,6 +665,14 @@ DASHBOARD
   justify-content: center;
   align-items: center;
   max-height: 370px;
+}
+
+.empty {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 24px 0;
 }
 
 .todo__list {
@@ -857,6 +733,7 @@ DASHBOARD
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
   height: 370px;
   border-radius: 20px;
   background: rgba(214, 209, 209, 0.75);
@@ -872,16 +749,17 @@ DASHBOARD
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  width: 100%;
 }
 
 .next__nav {
-  width: 100%;
+  width: 90%;
   height: 30px;
   padding: 24px 12px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid #3737a2;
 }
 
 .suggestion__title--container {
@@ -918,6 +796,7 @@ DASHBOARD
 
 .suggestion__button {
   padding: 12px 0;
+  color: white;
 }
 
 .suggestion__footer {
@@ -1377,6 +1256,7 @@ TODO
 
 .meal {
   width: 100%;
+  height: 25%;
   border: 1px solid white;
   display: flex;
   flex-direction: column;
@@ -1385,9 +1265,46 @@ TODO
 }
 
 .meal__data {
-  margin-bottom: 12px;
+  margin-top: 12px;
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.all__meal {
+  width: 100%;
+  height: 400px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.meal__icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.meal__cancel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.meal__statistics {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statistic__number {
+  font-size: 48px;
+}
+
+.statistic__subtitle {
+  background-color: white;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 20px;
 }

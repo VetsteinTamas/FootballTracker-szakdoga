@@ -1,16 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase";
 
-const Meal = ({ meals }) => {
-  console.log(meals);
+const Meal = ({ meals, allCalorie, allProtein, todayGoal }) => {
   const user = localStorage.getItem("loggedInUser");
   const [name, setName] = useState("");
   const [calorie, setCalorie] = useState("");
   const [protein, setProtein] = useState("");
+
+  const deleteMeal = async (index) => {
+    const mealDoc = doc(db, "meals", index);
+    await deleteDoc(mealDoc);
+  };
 
   const mealCollectionRef = collection(db, "meals");
   const submitItem = async (e) => {
@@ -97,7 +101,7 @@ const Meal = ({ meals }) => {
                   icon="fa-solid fa-utensils"
                   className="meal__icon"
                 />
-                Mit ettél ma?
+                Étel bevitel összegző
               </h1>
             </div>
             <div className="meal__main--container">
@@ -114,7 +118,7 @@ const Meal = ({ meals }) => {
                   />
                   <label htmlFor="calorie">Kalória</label>
                   <input
-                    type="text"
+                    type="number"
                     name="calorie"
                     id="calorie"
                     className="meal__input"
@@ -122,7 +126,7 @@ const Meal = ({ meals }) => {
                   />
                   <label htmlFor="protein">Fehérje</label>
                   <input
-                    type="text"
+                    type="number"
                     name="protein"
                     id="protein"
                     className="meal__input"
@@ -135,24 +139,65 @@ const Meal = ({ meals }) => {
               </div>
               <div className="meal__add meal__list">
                 <h2 className="meal__subtitle">Lista</h2>
-                {meals.map((meal) => {
-                  return (
-                    <div className="meal">
-                      <h3 className="meal__name">{meal.name}</h3>
-                      <div className="meal__data">
-                        <h5 className="meal__calorie">
-                          Kalória: {meal.calorie}
-                        </h5>
-                        <h5 className="meal__protein">
-                          Fehérje: {meal.protein}
-                        </h5>
+                <div className="all__meal">
+                  {meals.map((meal) => {
+                    return (
+                      <div className="meal">
+                        <div className="meal__cancel">
+                          <FontAwesomeIcon
+                            icon="fa-solid fa-xmark"
+                            className="meal__icon"
+                            onClick={() => {
+                              deleteMeal(meal.id);
+                            }}
+                          />
+                        </div>
+                        <h3 className="meal__name">{meal.name}</h3>
+                        <div className="meal__data">
+                          <h5 className="meal__calorie">
+                            Kalória: {meal.calorie}{" "}
+                            <FontAwesomeIcon icon="fa-solid fa-fire" />
+                          </h5>
+                          <h5 className="meal__protein">
+                            Fehérje: {meal.protein}{" "}
+                            <FontAwesomeIcon icon="fa-solid fa-dna" />
+                          </h5>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
               <div className="meal__add meal__list">
                 <h2 className="meal__subtitle">Összegzés</h2>
+                <div className="meal__statistics">
+                  <h3 className="statistic__subtitle">
+                    Elfogyasztott kalóríák
+                  </h3>
+                  <p
+                    className="statistic__number"
+                    style={
+                      allCalorie > 2000 ? { color: "red" } : { color: "white" }
+                    }
+                  >
+                    {allCalorie} / 2000
+                  </p>
+                  <h3 className="statistic__subtitle">
+                    Elfogyasztott fehérjék
+                  </h3>
+                  <p
+                    className="statistic__number"
+                    style={
+                      allProtein > 70 ? { color: "red" } : { color: "white" }
+                    }
+                  >
+                    {allProtein} / 70
+                  </p>
+                  <h3 className="statistic__subtitle">Mai összegzés</h3>
+                  <p className="statistic__number">
+                    {(todayGoal * 100).toFixed(2)} %
+                  </p>
+                </div>
               </div>
             </div>
           </div>

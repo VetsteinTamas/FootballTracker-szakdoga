@@ -1,13 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase";
 import Modal from "./Modal";
 
-const ToDo = ({ todo, fetchTodos }) => {
+const ToDo = ({ todo }) => {
   console.log(todo);
   const user = localStorage.getItem("loggedInUser");
 
@@ -16,12 +15,8 @@ const ToDo = ({ todo, fetchTodos }) => {
   const deleteTodo = async (index) => {
     const todoDoc = doc(db, "todo", index);
     await deleteDoc(todoDoc);
-    window.location.reload(false);
   };
 
-  useEffect(() => {
-    fetchTodos();
-  }, [todo]);
   return (
     <div className="container__dash">
       <div className="row dash__row">
@@ -93,42 +88,47 @@ const ToDo = ({ todo, fetchTodos }) => {
                 <FontAwesomeIcon icon="fa-solid fa-plus" /> Új hozzáadása
               </h2>
             </div>
-            <div className="plans">
-              {todo.map((element) => {
-                let month = element.time.toDate().getUTCMonth() + 1; //months from 1-12
-                let day = element.time.toDate().getUTCDate();
-                let year = element.time.toDate().getUTCFullYear();
-                let hour = element.time.toDate().getHours();
-                let minutes = element.time.toDate().getMinutes();
-                {
-                  minutes == 0 && (minutes = `00`);
-                }
-                return (
-                  <div className="plan" style={{ cursor: "default" }}>
-                    <div className="plan__title--container">
-                      <h3 className="plan__title todo__smalltitle">
-                        {element.type}
-                      </h3>
-                      <p className="plan__title todo__smalltitle">
-                        {year}/{month}/{day} {hour}:{minutes}
-                      </p>
+            {todo.length !== 0 ? (
+              <div className="plans">
+                {todo.map((element) => {
+                  console.log(element.id);
+                  let month = element.time.toDate().getUTCMonth() + 1; //months from 1-12
+                  let day = element.time.toDate().getUTCDate();
+                  let year = element.time.toDate().getUTCFullYear();
+                  let hour = element.time.toDate().getHours();
+                  let minutes = element.time.toDate().getMinutes();
+                  {
+                    minutes == 0 && (minutes = `00`);
+                  }
+                  return (
+                    <div className="plan" style={{ cursor: "default" }}>
+                      <div className="plan__title--container">
+                        <h3 className="plan__title todo__smalltitle">
+                          {element.type}
+                        </h3>
+                        <p className="plan__title todo__smalltitle">
+                          {year}/{month}/{day} {hour}:{minutes}
+                        </p>
+                      </div>
+                      <div className="plan__description--container">
+                        {/* TODO SPLICEOLNI SZÖVEGET */}
+                        <p className="todo__desc">{element.name}</p>
+                        <button
+                          className="todo__btn"
+                          onClick={() => {
+                            deleteTodo(element.id);
+                          }}
+                        >
+                          Kész
+                        </button>
+                      </div>
                     </div>
-                    <div className="plan__description--container">
-                      {/* TODO SPLICEOLNI SZÖVEGET */}
-                      <p className="todo__desc">{element.name}</p>
-                      <button
-                        className="todo__btn"
-                        onClick={() => {
-                          deleteTodo(element.id);
-                        }}
-                      >
-                        Kész
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="empty">Jelenleg nincs tennivalód.</div>
+            )}
           </div>
         </div>
       </div>

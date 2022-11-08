@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import DashboardHome from "../components/DashboardHome";
 import { Link } from "react-router-dom";
 
-const Dashboard = ({ todo }) => {
+const Dashboard = ({ todo, trainings, todayGoal }) => {
   const user = localStorage.getItem("loggedInUser");
 
   return (
@@ -70,7 +70,11 @@ const Dashboard = ({ todo }) => {
             </p>
           </div>
         </div>
-        <DashboardHome todo={todo} />
+        <DashboardHome
+          todo={todo}
+          trainings={trainings}
+          todayGoal={todayGoal}
+        />
       </div>
     </div>
   );

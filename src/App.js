@@ -13,11 +13,15 @@ import {
   faClipboard,
   faClock,
   faCrosshairs,
+  faDna,
+  faFaceGrinBeamSweat,
+  faFaceLaughWink,
   faFaceSadTear,
   faFire,
   faForward,
   faFutbol,
   faGear,
+  faHandFist,
   faHouse,
   faList,
   faLocationDot,
@@ -37,7 +41,7 @@ import RegisterInfo from "./pages/RegisterInfo";
 import Dashboard from "./pages/Dashboard";
 import TrainingDetails from "./components/TrainingDetails";
 import Trainingplan from "./components/Trainingplan";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./firebase.js";
 import { useEffect, useState } from "react";
 import ToDo from "./components/ToDo";
@@ -51,6 +55,7 @@ library.add(
   faUtensils,
   faUserPen,
   faPercent,
+  faHandFist,
   faList,
   faArrowRightFromBracket,
   faBars,
@@ -59,6 +64,8 @@ library.add(
   faGear,
   faFaceSadTear,
   faClock,
+  faFaceGrinBeamSweat,
+  faFaceLaughWink,
   faLocationDot,
   faCrosshairs,
   faPlus,
@@ -70,7 +77,8 @@ library.add(
   faForward,
   faXmark,
   faCircle,
-  faAngleRight
+  faAngleRight,
+  faDna
 );
 
 function App() {
@@ -80,7 +88,9 @@ function App() {
   useEffect(
     () =>
       onSnapshot(collection(db, "trainings"), (snapshot) =>
-        setTrainings(snapshot.docs.map((doc) => doc.data()))
+        setTrainings(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        )
       ),
     []
   );
@@ -88,30 +98,42 @@ function App() {
 
   /* TO DOS */
   const [todo, setTodo] = useState([]);
-
-  const fetchTodos = async () => {
-    await getDocs(collection(db, "todo")).then((querySnapshot) => {
-      const newData = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setTodo(newData);
-    });
-  };
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "todo"), (snapshot) =>
+        setTodo(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      ),
+    []
+  );
+  console.log(todo);
 
   /* MEALS */
 
   const [meals, setMeals] = useState([]);
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "meals"), (snapshot) =>
+        setMeals(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      ),
+    []
+  );
+  console.log(meals);
 
-  const fetchMeals = async () => {
-    await getDocs(collection(db, "meals")).then((querySnapshot) => {
-      const newData = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setMeals(newData);
-    });
-  };
+  let allCalorie = 0;
+  let allProtein = 0;
+
+  meals.map((meal) => {
+    allCalorie += Number(meal.calorie);
+    allProtein += Number(meal.protein);
+  });
+
+  let todayGoal = (allCalorie / 2000 + allProtein / 70) / 2;
+  console.log(todayGoal);
+
+  if (todayGoal > 1) {
+    todayGoal = 1;
+  }
+
   return (
     <Router>
       <Nav />
@@ -121,7 +143,7 @@ function App() {
       <Route path="/registerdetails" component={RegisterDetails} exact />
       <Route path="/registerinfo" component={RegisterInfo} exact />
       <Route path="/dashboard" exact>
-        <Dashboard todo={todo} />
+        <Dashboard todo={todo} trainings={trainings} todayGoal={todayGoal} />
       </Route>
       <Route path="/dashboard/training" exact>
         <Trainingplan trainings={trainings} />
@@ -133,7 +155,12 @@ function App() {
         <ToDo todo={todo} />
       </Route>
       <Route path="/dashboard/meal">
-        <Meal meals={meals} />
+        <Meal
+          meals={meals}
+          allCalorie={allCalorie}
+          allProtein={allProtein}
+          todayGoal={todayGoal}
+        />
       </Route>
     </Router>
   );

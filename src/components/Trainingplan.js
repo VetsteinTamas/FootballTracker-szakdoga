@@ -1,10 +1,27 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Trainingplan = ({ trainings }) => {
-  console.log(trainings);
+  const [startSlice, setStartSlice] = useState(0);
+  const [endSlice, setEndSlice] = useState(6);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const user = localStorage.getItem("loggedInUser");
+
+  const previousPage = () => {
+    setStartSlice(startSlice - 6);
+    setEndSlice(endSlice - 6);
+    setCurrentPage(currentPage - 1);
+  };
+
+  const nextPage = () => {
+    setStartSlice(startSlice + 6);
+    setEndSlice(endSlice + 6);
+    setCurrentPage(currentPage + 1);
+  };
+
   return (
     <div className="container__dash">
       <div className="row dash__row">
@@ -71,69 +88,96 @@ const Trainingplan = ({ trainings }) => {
         <div className="statistics">
           <div className="plans__container">
             <div className="plans">
-              {trainings.map((training, index) => {
-                console.log(index);
-                return (
-                  <div className="plan">
-                    <Link
-                      to={`/dashboard/training/${JSON.stringify(index)}`}
-                      className="link"
-                    >
-                      <div className="plan__title--container">
-                        <FontAwesomeIcon
-                          icon="fa-solid fa-person-running"
-                          className="plan__icon"
-                        />
-                        <h3 className="plan__title">{training.name}</h3>
-                      </div>
-                      <div className="plan__description--container">
-                        {/* TODO SPLICEOLNI SZÖVEGET */}
-                        <p className="plan__description">
-                          {training.description.slice(0, 60) + "..."}
-                        </p>
-                        <div className="plan__details">
-                          <div className="plan__detail">
-                            <FontAwesomeIcon
-                              icon="fa-solid fa-angle-right"
-                              className="plan__icon"
-                            />
-                            <h3 className="plan__title">
-                              {training.difficulty}
-                            </h3>
-                          </div>
-                          <div className="plan__detail">
-                            <FontAwesomeIcon
-                              icon="fa-solid fa-angle-right"
-                              className="plan__icon"
-                            />
-                            <h3 className="plan__title">{training.location}</h3>
-                          </div>
-                          <div className="plan__detail">
-                            <FontAwesomeIcon
-                              icon="fa-solid fa-angle-right"
-                              className="plan__icon"
-                            />
-                            <h3 className="plan__title">{training.position}</h3>
-                          </div>
-                          <div className="plan__detail">
-                            <FontAwesomeIcon
-                              icon="fa-solid fa-angle-right"
-                              className="plan__icon"
-                            />
-                            <h3 className="plan__title">30 perc</h3>
+              {trainings
+                .map((training, index) => {
+                  console.log(index);
+                  return (
+                    <div className="plan">
+                      <Link
+                        to={`/dashboard/training/${JSON.stringify(index)}`}
+                        className="link"
+                      >
+                        <div className="plan__title--container">
+                          <FontAwesomeIcon
+                            icon="fa-solid fa-person-running"
+                            className="plan__icon"
+                          />
+                          <h3 className="plan__title">{training.name}</h3>
+                        </div>
+                        <div className="plan__description--container">
+                          {/* TODO SPLICEOLNI SZÖVEGET */}
+                          <p className="plan__description">
+                            {training.description.slice(0, 60) + "..."}
+                          </p>
+                          <div className="plan__details">
+                            <div className="plan__detail">
+                              <FontAwesomeIcon
+                                icon="fa-solid fa-angle-right"
+                                className="plan__icon"
+                              />
+                              <h3 className="plan__title">
+                                {training.difficulty}
+                              </h3>
+                            </div>
+                            <div className="plan__detail">
+                              <FontAwesomeIcon
+                                icon="fa-solid fa-angle-right"
+                                className="plan__icon"
+                              />
+                              <h3 className="plan__title">
+                                {training.location}
+                              </h3>
+                            </div>
+                            <div className="plan__detail">
+                              <FontAwesomeIcon
+                                icon="fa-solid fa-angle-right"
+                                className="plan__icon"
+                              />
+                              <h3 className="plan__title">
+                                {training.position}
+                              </h3>
+                            </div>
+                            <div className="plan__detail">
+                              <FontAwesomeIcon
+                                icon="fa-solid fa-angle-right"
+                                className="plan__icon"
+                              />
+                              <h3 className="plan__title">30 perc</h3>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </Link>
-                  </div>
-                );
-              })}
-              ;
+                      </Link>
+                    </div>
+                  );
+                })
+                .slice(startSlice, endSlice)}
             </div>
             <div className="plans__footer">
-              <FontAwesomeIcon icon="fa-solid fa-backward" />
-              <p>1. oldal</p>
-              <FontAwesomeIcon icon="fa-solid fa-forward" />
+              {currentPage > 1 ? (
+                <FontAwesomeIcon
+                  icon="fa-solid fa-backward"
+                  onClick={previousPage}
+                  style={{ cursor: "pointer" }}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon="fa-solid fa-backward"
+                  style={{ opacity: "0" }}
+                />
+              )}
+              <p>{currentPage}. oldal</p>
+              {trainings.slice(startSlice + 6, endSlice + 6).length > 0 ? (
+                <FontAwesomeIcon
+                  icon="fa-solid fa-forward"
+                  onClick={nextPage}
+                  style={{ cursor: "pointer" }}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon="fa-solid fa-backward"
+                  style={{ opacity: "0" }}
+                />
+              )}
             </div>
           </div>
         </div>

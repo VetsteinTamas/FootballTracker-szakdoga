@@ -1,56 +1,89 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
-const DashboardHome = ({ todo }) => {
+const DashboardHome = ({ todo, trainings, todayGoal }) => {
+  const trainingArrayUndone = trainings.filter(
+    (training) => training.done == false
+  );
+  let randomUndoneTraining =
+    trainingArrayUndone[Math.floor(Math.random() * trainingArrayUndone.length)];
+  const trainingArray = trainings.filter((training) => training.done == true);
+  console.log(trainingArray);
+  const trainingPercentage = (
+    (trainingArray.length / trainings.length) *
+    100
+  ).toFixed(0);
+  const todayGoalFixed = (todayGoal * 100).toFixed(0);
+  let todoPercentage = 0;
+  todo.length === 0 ? (todoPercentage = 100) : (todoPercentage = 0);
+  const value =
+    (Number(todayGoalFixed) +
+      Number(trainingPercentage) +
+      todoPercentage +
+      Number(todayGoalFixed)) /
+    4;
+  console.log(trainingArrayUndone, randomUndoneTraining);
   return (
     <div className="statistics">
       <div className="summary">
         <div className="summary__icons">
           <div className="summary__icon">
-            <div className="css-pie">
-              <div></div>
-              <div></div>
-            </div>
-            <div className="pie__number--container">
-              <p className="pie__number pie__number1"></p>
-            </div>
+            <CircularProgressbar
+              value={trainingPercentage}
+              text={`${trainingPercentage}%`}
+              className="progress"
+            />
+            <p className="summary__icon--title">Edzés teljesítve</p>
           </div>
           <div className="summary__icon">
-            <div className="css-pie">
-              <div></div>
-              <div></div>
-            </div>
-            <div className="pie__number--container">
-              <p className="pie__number pie__number2"></p>
-            </div>
+            <CircularProgressbar
+              value={todayGoalFixed}
+              text={`${todayGoalFixed}%`}
+              className="progress"
+            />
+            <p className="summary__icon--title">Kalória és fehérje cél</p>
           </div>
           <div className="summary__icon">
-            <div className="css-pie">
-              <div></div>
-              <div></div>
-            </div>
-            <div className="pie__number--container">
-              <p className="pie__number pie__number3"></p>
-            </div>
+            <CircularProgressbar
+              className="progress"
+              value={todoPercentage}
+              text={`${todoPercentage}%`}
+            />
+            <p className="summary__icon--title">TO-DO teljesítve</p>
           </div>
           <div className="summary__icon">
-            <div className="css-pie">
-              <div></div>
-              <div></div>
-            </div>
-            <div className="pie__number--container">
-              <p className="pie__number pie__number5"></p>
-            </div>
+            <CircularProgressbar
+              className="progress"
+              value={todayGoalFixed}
+              text={`${todayGoalFixed}%`}
+            />
+            <p className="summary__icon--title">TO DO</p>
           </div>
         </div>
         <div className="summary__rating">
           <p className="rating">
             Értékelés:{" "}
-            <FontAwesomeIcon
-              icon="fa-solid fa-face-sad-tear"
-              className="rating__icon"
-            />
+            {value < 50 ? (
+              <FontAwesomeIcon
+                icon="fa-solid fa-face-sad-tear"
+                className="rating__icon"
+              />
+            ) : value >= 50 && value < 70 ? (
+              <FontAwesomeIcon
+                icon="fa-solid fa-face-grin-beam-sweat"
+                className="rating__icon"
+              />
+            ) : value >= 70 ? (
+              <FontAwesomeIcon
+                icon="fa-solid fa-face-laugh-wink"
+                className="rating__icon"
+              />
+            ) : (
+              "error"
+            )}
           </p>
         </div>
       </div>
@@ -66,76 +99,105 @@ const DashboardHome = ({ todo }) => {
                 />
               </Link>
             </div>
-            <ul className="todo__list--ul">
-              {todo.slice(0, 3).map((element) => {
-                let month = element.time.toDate().getUTCMonth() + 1; //months from 1-12
-                let day = element.time.toDate().getUTCDate();
-                let year = element.time.toDate().getUTCFullYear();
-                let hour = element.time.toDate().getHours();
-                let minutes = element.time.toDate().getMinutes();
-                if (minutes == 0) {
-                  minutes = `00`;
-                } else if (minutes < 10) {
-                  minutes = "0" + minutes.toString();
-                }
+            {todo.length !== 0 ? (
+              <ul className="todo__list--ul">
+                {todo.slice(0, 3).map((element) => {
+                  let month = element.time.toDate().getUTCMonth() + 1; //months from 1-12
+                  let day = element.time.toDate().getUTCDate();
+                  let year = element.time.toDate().getUTCFullYear();
+                  let hour = element.time.toDate().getHours();
+                  let minutes = element.time.toDate().getMinutes();
+                  if (minutes === 0) {
+                    minutes = `00`;
+                  } else if (minutes < 10) {
+                    minutes = "0" + minutes.toString();
+                  }
 
-                return (
-                  <>
-                    <div className="todo__item--header">
-                      <span className="blue" style={{ fontWeight: 700 }}>
-                        {element.type}
-                      </span>
-                      <span className="blue" style={{ fontWeight: 700 }}>
-                        {year}/{month}/{day} {hour}:{minutes}
-                      </span>
-                    </div>
-                    <li className="todo__item">{element.name.slice(0, 30)}</li>
-                  </>
-                );
-              })}
-            </ul>
+                  return (
+                    <>
+                      <div className="todo__item--header">
+                        <span className="blue" style={{ fontWeight: 700 }}>
+                          {element.type}
+                        </span>
+                        <span className="blue" style={{ fontWeight: 700 }}>
+                          {year}/{month}/{day} {hour}:{minutes}
+                        </span>
+                      </div>
+                      <li className="todo__item">
+                        {element.name.slice(0, 30)}
+                      </li>
+                    </>
+                  );
+                })}
+              </ul>
+            ) : (
+              <div className="empty" style={{ height: "100%" }}>
+                Jelenleg nincs tennivalód.
+              </div>
+            )}
           </div>
         </div>
         <div className="next">
           <div className="next__nav">
-            <FontAwesomeIcon
-              icon="fa-solid fa-backward"
-              className="navigate__icon"
-            />
             <h3 className="next__title">Ajánlott edzésterv</h3>
-            <FontAwesomeIcon
-              icon="fa-solid fa-forward"
-              className="navigate__icon"
-            />
           </div>
-          <div className="next__container">
-            <div className="next__container--text">
-              <div className="suggestion__title--container">
-                <h3 className="suggestion__title">Futás megszakításokkal</h3>
-                <h3 className="suggestion__title">30 perc</h3>
+          {trainingArrayUndone.length > 0 ? (
+            <div className="next__container">
+              <div className="next__container--text">
+                <div className="suggestion__title--container">
+                  <h3 className="suggestion__title">
+                    {randomUndoneTraining.name}
+                  </h3>
+                  <h3 className="suggestion__title">
+                    {randomUndoneTraining.duration} perc
+                  </h3>
+                </div>
+                <div className="suggestion__description--container">
+                  {randomUndoneTraining.description}
+                </div>
+                <ul className="suggestion__list">
+                  <li className="suggestion__item">
+                    Nehézség:{" "}
+                    <span className="bold">
+                      {randomUndoneTraining.difficulty}
+                    </span>
+                  </li>
+                  <li className="suggestion__item">
+                    Pozíció:{" "}
+                    <span className="bold">
+                      {randomUndoneTraining.position}
+                    </span>
+                  </li>
+                  <li className="suggestion__item">
+                    Helyszín:{" "}
+                    <span className="bold">
+                      {randomUndoneTraining.location}
+                    </span>
+                  </li>
+                </ul>
               </div>
-              <div className="suggestion__description--container">
-                A gyakorlat lényege, hogy hatszor 4+1 percet fuss. A 4 perc
-                intenzív tempóban, az 1 perc viszont lassú levezető kocogással.
+              <div className="next__jump">
+                <div className="suggestion__title--container suggestion__footer">
+                  <Link
+                    className="link"
+                    to={`/dashboard/training/${JSON.stringify(
+                      Number(randomUndoneTraining.id)
+                    )}`}
+                  >
+                    <h3 className="suggestion__button">Ugrás a feladathoz</h3>
+                  </Link>
+                </div>
               </div>
-              <ul className="suggestion__list">
-                <li className="suggestion__item">
-                  Nehézség: <span className="bold">Haladó</span>
-                </li>
-                <li className="suggestion__item">
-                  Eszközök: <span className="bold">Nincs</span>
-                </li>
-                <li className="suggestion__item">
-                  Helyszín: <span className="bold">Nincs megkötve</span>
-                </li>
-              </ul>
             </div>
-            <div className="next__jump">
-              <div className="suggestion__title--container suggestion__footer">
-                <h3 className="suggestion__button">Ugrás a feladathoz</h3>
-              </div>
+          ) : (
+            <div className="empty" style={{ height: "100%" }}>
+              Minden edzést elvégeztél{" "}
+              <FontAwesomeIcon
+                icon="fa-solid fa-hand-fist"
+                style={{ fontSize: "24px", marginLeft: "6px" }}
+              />
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

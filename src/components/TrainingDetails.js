@@ -1,14 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { doc, updateDoc } from "firebase/firestore";
-import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../firebase";
 
-const TrainingDetails = ({ trainings, fetchTrainings }) => {
+const TrainingDetails = ({ trainings }) => {
   const user = localStorage.getItem("loggedInUser");
   const { id } = useParams();
   const done = trainings[id].done;
+
 
   const [isDone, setIsDone] = useState(done);
   console.log(isDone);
@@ -22,10 +22,6 @@ const TrainingDetails = ({ trainings, fetchTrainings }) => {
     console.log(isDone);
   };
   console.log(isDone);
-
-  useEffect(() => {
-    fetchTrainings();
-  }, [isDone]);
 
   return (
     <div className="container__dash">
