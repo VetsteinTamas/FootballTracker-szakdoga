@@ -9,17 +9,14 @@ const RegisterInfo = () => {
   const auth = getAuth(app);
 
   /* LOCALSTORAGE */
-  let time = localStorage.getItem("time");
-  let position = localStorage.getItem("position");
   let weight = localStorage.getItem("weight");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
   const newUserinfo = {
-    time,
-    position,
-    weight,
+    name,
   };
 
   console.log(newUserinfo);
@@ -33,11 +30,10 @@ const RegisterInfo = () => {
         console.log(user);
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("loggedInUser", email);
-        history.push("/");
+        history.push("/login");
       })
       .catch((error) => {
         /* const errorCode = error.code; */
-        const errorMessage = error.message;
         // ..
       });
     UserinfoDataService.setUserinfo(email, newUserinfo);
@@ -75,6 +71,12 @@ const RegisterInfo = () => {
               placeholder="Email"
               className="registration__input"
               onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Név"
+              className="registration__input"
+              onChange={(e) => setName(e.target.value)}
             />
             <input
               type="password"

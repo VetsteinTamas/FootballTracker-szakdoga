@@ -6,12 +6,20 @@ import "react-circular-progressbar/dist/styles.css";
 
 const DashboardHome = ({ todo, trainings, todayGoal }) => {
   const trainingArrayUndone = trainings.filter(
-    (training) => training.done == false
+    (training) => training.done === false
   );
+
   let randomUndoneTraining =
     trainingArrayUndone[Math.floor(Math.random() * trainingArrayUndone.length)];
-  const trainingArray = trainings.filter((training) => training.done == true);
-  console.log(trainingArray);
+
+  const trainingArray = trainings.filter((training) => training.done === true);
+
+  let calorieBurnt = 0;
+  trainingArray.map((training) => {
+    calorieBurnt += training.calorie;
+  });
+  console.log(calorieBurnt);
+
   const trainingPercentage = (
     (trainingArray.length / trainings.length) *
     100
@@ -25,7 +33,6 @@ const DashboardHome = ({ todo, trainings, todayGoal }) => {
       todoPercentage +
       Number(todayGoalFixed)) /
     4;
-  console.log(trainingArrayUndone, randomUndoneTraining);
   return (
     <div className="statistics">
       <div className="summary">
@@ -34,6 +41,18 @@ const DashboardHome = ({ todo, trainings, todayGoal }) => {
             <CircularProgressbar
               value={trainingPercentage}
               text={`${trainingPercentage}%`}
+              styles={{
+                path: {
+                  stroke: "rgb(51, 51, 151)",
+                },
+                trail: {
+                  stroke: "white",
+                },
+                text: {
+                  // Text color
+                  fill: "rgb(51, 51, 151)",
+                },
+              }}
               className="progress"
             />
             <p className="summary__icon--title">Edzés teljesítve</p>
@@ -43,6 +62,18 @@ const DashboardHome = ({ todo, trainings, todayGoal }) => {
               value={todayGoalFixed}
               text={`${todayGoalFixed}%`}
               className="progress"
+              styles={{
+                path: {
+                  stroke: "rgb(51, 51, 151)",
+                },
+                trail: {
+                  stroke: "white",
+                },
+                text: {
+                  // Text color
+                  fill: "rgb(51, 51, 151)",
+                },
+              }}
             />
             <p className="summary__icon--title">Kalória és fehérje cél</p>
           </div>
@@ -51,16 +82,24 @@ const DashboardHome = ({ todo, trainings, todayGoal }) => {
               className="progress"
               value={todoPercentage}
               text={`${todoPercentage}%`}
+              styles={{
+                path: {
+                  stroke: "rgb(51, 51, 151)",
+                },
+                trail: {
+                  stroke: "white",
+                },
+                text: {
+                  // Text color
+                  fill: "rgb(51, 51, 151)",
+                },
+              }}
             />
             <p className="summary__icon--title">TO-DO teljesítve</p>
           </div>
-          <div className="summary__icon">
-            <CircularProgressbar
-              className="progress"
-              value={todayGoalFixed}
-              text={`${todayGoalFixed}%`}
-            />
-            <p className="summary__icon--title">TO DO</p>
+          <div className="summary__icon--calorie">
+            <p className="calorie__burnt blue">{calorieBurnt}</p>
+            <p className="summary__icon--title">Kalória elégetve</p>
           </div>
         </div>
         <div className="summary__rating">

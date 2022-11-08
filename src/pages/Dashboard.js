@@ -1,12 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-
 import DashboardHome from "../components/DashboardHome";
 import { Link } from "react-router-dom";
 
-const Dashboard = ({ todo, trainings, todayGoal }) => {
-  const user = localStorage.getItem("loggedInUser");
-
+const Dashboard = ({ todo, trainings, todayGoal, matchingUser }) => {
   return (
     <div className="container__dash">
       <div className="row dash__row">
@@ -18,7 +15,7 @@ const Dashboard = ({ todo, trainings, todayGoal }) => {
               className="menu__icon"
             />
             <p className="menu__para">Üdv újra,</p>
-            <div className="menu__title">{user}</div>
+            <div className="menu__title">{matchingUser[0].name}</div>
           </div>
           <div className="menu__items">
             <ul className="menu__items--list">
@@ -48,7 +45,7 @@ const Dashboard = ({ todo, trainings, todayGoal }) => {
                   className="menu__fonticon"
                 />
                 <Link to="/dashboard/meal" className="link">
-                  Étrend
+                  Étrend összegző
                 </Link>
               </li>
               <li className="menu__item">

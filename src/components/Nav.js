@@ -21,22 +21,33 @@ const Nav = () => {
           Football<span className="blue">Tracker</span>
         </h3>
         <ul className="nav__menu">
-          <li className="nav__item">
-            <FontAwesomeIcon icon="house" />
-            <Link style={{ textDecoration: "none", color: "black" }} to="">
-              Főoldal
-            </Link>
-          </li>
-          <li className="nav__item">
-            <FontAwesomeIcon icon="fa-solid fa-note-sticky" />
-            Edzéstervek
-          </li>
-          <li className="nav__item">
-            <FontAwesomeIcon icon="fa-solid fa-brain" />
-            Motiváció
-          </li>
-          {loggedIn === "false" ? (
+          {loggedIn === "true" ? (
             <>
+              <Link to="/dashboard" className="link">
+                <li className="nav__item">
+                  <FontAwesomeIcon icon="fa-solid fa-brain" />
+                  Kezelőfelület
+                </li>
+              </Link>
+              <li className="nav__item">
+                <Link to="/dashboard" className="blue__bg">
+                  {user}
+                </Link>
+                <FontAwesomeIcon
+                  onClick={logout}
+                  icon="fa-solid fa-arrow-right-from-bracket"
+                  className="navigate__icon"
+                />
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="nav__item">
+                <FontAwesomeIcon icon="house" />
+                <Link style={{ textDecoration: "none", color: "black" }} to="">
+                  Főoldal
+                </Link>
+              </li>
               <li className="nav__item">
                 <Link to="/register" className="nav__item">
                   Regisztráció
@@ -48,17 +59,6 @@ const Nav = () => {
                 </Link>
               </li>
             </>
-          ) : (
-            <li className="nav__item">
-              <Link to="/dashboard" className="blue__bg">
-                {user}
-              </Link>
-              <FontAwesomeIcon
-                onClick={logout}
-                icon="fa-solid fa-arrow-right-from-bracket"
-                className="navigate__icon"
-              />
-            </li>
           )}
         </ul>
       </div>

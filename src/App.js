@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import MainPage from "./pages/MainPage";
-import Register from "./pages/Register";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faAngleRight,
@@ -36,11 +35,11 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Login from "./pages/Login";
-import RegisterDetails from "./pages/RegisterDetails";
 import RegisterInfo from "./pages/RegisterInfo";
 import Dashboard from "./pages/Dashboard";
 import TrainingDetails from "./components/TrainingDetails";
 import Trainingplan from "./components/Trainingplan";
+import PrivateRoute from "./components/PrivateRoute";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./firebase.js";
 import { useEffect, useState } from "react";
@@ -82,6 +81,19 @@ library.add(
 );
 
 function App() {
+  /* USERSINFO */
+  const [users, setUsers] = useState("");
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "usersInfo"), (snapshot) =>
+        setUsers(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      ),
+    []
+  );
+  console.log(users);
+  const user = localStorage.getItem("loggedInUser");
+  const matchingUser = users.filter((userInfo) => userInfo.id === user);
+  console.log(matchingUser);
   /* TRAINING PLANS */
   const [trainings, setTrainings] = useState([]);
 
@@ -119,6 +131,8 @@ function App() {
   );
   console.log(meals);
 
+  /* MEALS COUNTER */
+
   let allCalorie = 0;
   let allProtein = 0;
 
@@ -139,29 +153,34 @@ function App() {
       <Nav />
       <Route path="/login" component={Login} exact />
       <Route path="/" component={MainPage} exact />
-      <Route path="/register" component={Register} exact />
-      <Route path="/registerdetails" component={RegisterDetails} exact />
-      <Route path="/registerinfo" component={RegisterInfo} exact />
-      <Route path="/dashboard" exact>
-        <Dashboard todo={todo} trainings={trainings} todayGoal={todayGoal} />
-      </Route>
-      <Route path="/dashboard/training" exact>
-        <Trainingplan trainings={trainings} />
-      </Route>
-      <Route path="/dashboard/training/:id" exact>
-        <TrainingDetails trainings={trainings} />
-      </Route>
-      <Route path="/dashboard/todo" exact>
-        <ToDo todo={todo} />
-      </Route>
-      <Route path="/dashboard/meal">
+      <Route path="/register" component={RegisterInfo} exact />
+      <PrivateRoute path="/dashboard" exact>
+        <Dashboard
+          matchingUser={matchingUser}
+          todo={todo}
+          trainings={trainings}
+          todayGoal={todayGoal}
+          users={users}
+        />
+      </PrivateRoute>
+      <PrivateRoute path="/dashboard/training" exact>
+        <Trainingplan trainings={trainings} matchingUser={matchingUser} />
+      </PrivateRoute>
+      <PrivateRoute path="/dashboard/training/:id" exact>
+        <TrainingDetails trainings={trainings} matchingUser={matchingUser} />
+      </PrivateRoute>
+      <PrivateRoute path="/dashboard/todo" exact>
+        <ToDo todo={todo} matchingUser={matchingUser} />
+      </PrivateRoute>
+      <PrivateRoute path="/dashboard/meal" exact>
         <Meal
           meals={meals}
+          matchingUser={matchingUser}
           allCalorie={allCalorie}
           allProtein={allProtein}
           todayGoal={todayGoal}
         />
-      </Route>
+      </PrivateRoute>
     </Router>
   );
 }

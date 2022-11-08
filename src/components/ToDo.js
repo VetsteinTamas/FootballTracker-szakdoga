@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { db } from "../firebase";
 import Modal from "./Modal";
 
-const ToDo = ({ todo }) => {
+const ToDo = ({ todo,matchingUser }) => {
   console.log(todo);
   const user = localStorage.getItem("loggedInUser");
 
@@ -28,7 +28,7 @@ const ToDo = ({ todo }) => {
               className="menu__icon"
             />
             <p className="menu__para">Üdv újra,</p>
-            <div className="menu__title">{user}</div>
+            <div className="menu__title">{matchingUser[0].name}</div>
           </div>
           <div className="menu__items">
             <ul className="menu__items--list">
@@ -56,7 +56,7 @@ const ToDo = ({ todo }) => {
                   className="menu__fonticon"
                 />
                 <Link to="/dashboard/meal" className="link">
-                  Étrend
+                Étrend összegző
                 </Link>
               </li>
               <li className="menu__item">
@@ -97,8 +97,10 @@ const ToDo = ({ todo }) => {
                   let year = element.time.toDate().getUTCFullYear();
                   let hour = element.time.toDate().getHours();
                   let minutes = element.time.toDate().getMinutes();
-                  {
-                    minutes == 0 && (minutes = `00`);
+                  if (minutes === 0) {
+                    minutes = `00`;
+                  } else if (minutes < 10) {
+                    minutes = "0" + minutes.toString();
                   }
                   return (
                     <div className="plan" style={{ cursor: "default" }}>

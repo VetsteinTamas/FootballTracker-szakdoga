@@ -1,16 +1,13 @@
 import { db } from "../firebase";
 
 import {
-  collection,
   getDoc,
-  addDoc,
   setDoc,
   updateDoc,
   deleteDoc,
   doc,
 } from "firebase/firestore";
 
-const userinfoCollectionRef = collection(db, "usersInfo");
 class UserinfoDataService {
   setUserinfo = (id, newUserinfo) => {
     const userinfoDoc = doc(db, "usersInfo", id);

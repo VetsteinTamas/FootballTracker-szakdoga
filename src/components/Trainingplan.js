@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Trainingplan = ({ trainings }) => {
+const Trainingplan = ({ trainings,matchingUser }) => {
   const [startSlice, setStartSlice] = useState(0);
   const [endSlice, setEndSlice] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +33,7 @@ const Trainingplan = ({ trainings }) => {
               className="menu__icon"
             />
             <p className="menu__para">Üdv újra,</p>
-            <div className="menu__title">{user}</div>
+            <div className="menu__title">{matchingUser[0].name}</div>
           </div>
           <div className="menu__items">
             <ul className="menu__items--list">
@@ -63,7 +63,7 @@ const Trainingplan = ({ trainings }) => {
                   className="menu__fonticon"
                 />
                 <Link to="/dashboard/meal" className="link">
-                  Étrend
+                Étrend összegző
                 </Link>
               </li>
               <li className="menu__item">

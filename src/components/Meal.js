@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase";
 
-const Meal = ({ meals, allCalorie, allProtein, todayGoal }) => {
+const Meal = ({ meals, allCalorie, allProtein, todayGoal, matchingUser }) => {
   const user = localStorage.getItem("loggedInUser");
   const [name, setName] = useState("");
   const [calorie, setCalorie] = useState("");
@@ -36,7 +36,7 @@ const Meal = ({ meals, allCalorie, allProtein, todayGoal }) => {
               className="menu__icon"
             />
             <p className="menu__para">Üdv újra,</p>
-            <div className="menu__title">{user}</div>
+            <div className="menu__title">{matchingUser[0].name}</div>
           </div>
           <div className="menu__items">
             <ul className="menu__items--list">
@@ -65,7 +65,7 @@ const Meal = ({ meals, allCalorie, allProtein, todayGoal }) => {
                     className="menu__fonticon"
                   />
                   <Link to="/dashboard/meal" className="link">
-                    Étrend
+                    Étrend összegző
                   </Link>
                 </span>
               </li>

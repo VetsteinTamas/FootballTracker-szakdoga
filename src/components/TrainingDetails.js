@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../firebase";
 
-const TrainingDetails = ({ trainings }) => {
+const TrainingDetails = ({ trainings,matchingUser }) => {
   const user = localStorage.getItem("loggedInUser");
   const { id } = useParams();
   const done = trainings[id].done;
@@ -34,7 +34,7 @@ const TrainingDetails = ({ trainings }) => {
               className="menu__icon"
             />
             <p className="menu__para">Üdv újra,</p>
-            <div className="menu__title">{user}</div>
+            <div className="menu__title">{matchingUser[0].name}</div>
           </div>
           <div className="menu__items">
             <ul className="menu__items--list">
@@ -64,7 +64,7 @@ const TrainingDetails = ({ trainings }) => {
                   className="menu__fonticon"
                 />
                 <Link to="/dashboard/meal" className="link">
-                  Étrend
+                Étrend összegző
                 </Link>
               </li>
               <li className="menu__item">
