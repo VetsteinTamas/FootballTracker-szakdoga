@@ -5,6 +5,7 @@ import { useState } from "react";
 import { db } from "../firebase";
 
 const Modal = ({ open, onClose }) => {
+  const user = localStorage.getItem("loggedInUser");
   const [name, setName] = useState("");
   const [date, setDate] = useState();
   const [type, setType] = useState("");
@@ -16,6 +17,7 @@ const Modal = ({ open, onClose }) => {
       name: name,
       time: updatedDate,
       type: type,
+      uploadedBy: user,
     });
   };
 

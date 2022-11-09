@@ -4,24 +4,28 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../firebase";
 
-const TrainingDetails = ({ trainings,matchingUser }) => {
+const TrainingDetails = ({ trainings, matchingUser }) => {
   const user = localStorage.getItem("loggedInUser");
   const { id } = useParams();
-  const done = trainings[id].done;
+  const doneBy = trainings[id].doneBy;
 
-
-  const [isDone, setIsDone] = useState(done);
-  console.log(isDone);
+  const [isDoneBy, setIsDoneBy] = useState(doneBy);
+  console.log(isDoneBy);
   const trainingDoc = doc(db, "trainings", trainings[id].id);
   const handleDone = async () => {
-    console.log(isDone);
-    setIsDone(!isDone);
+    console.log(isDoneBy);
+    if (doneBy.includes(user)) {
+      let index = doneBy.indexOf(user);
+      doneBy.splice(index, 1);
+    } else {
+      setIsDoneBy(doneBy.push(user));
+    }
     await updateDoc(trainingDoc, {
-      done: !isDone,
+      doneBy: doneBy,
     });
-    console.log(isDone);
+    console.log(doneBy);
   };
-  console.log(isDone);
+  console.log(doneBy);
 
   return (
     <div className="container__dash">
@@ -64,7 +68,7 @@ const TrainingDetails = ({ trainings,matchingUser }) => {
                   className="menu__fonticon"
                 />
                 <Link to="/dashboard/meal" className="link">
-                Étrend összegző
+                  Étrend összegző
                 </Link>
               </li>
               <li className="menu__item">
@@ -107,7 +111,7 @@ const TrainingDetails = ({ trainings,matchingUser }) => {
                   name="done"
                   id="done"
                   onChange={handleDone}
-                  checked={isDone ? true : false}
+                  checked={doneBy.includes(user) ? true : false}
                 />
                 <h1 className="training__plan--title">Megjelölve mint kész</h1>
               </div>

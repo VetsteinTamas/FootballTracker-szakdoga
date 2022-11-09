@@ -82,7 +82,7 @@ library.add(
 
 function App() {
   /* USERSINFO */
-  const [users, setUsers] = useState("");
+  const [users, setUsers] = useState([]);
   useEffect(
     () =>
       onSnapshot(collection(db, "usersInfo"), (snapshot) =>
@@ -94,7 +94,7 @@ function App() {
   const user = localStorage.getItem("loggedInUser");
   const matchingUser = users.filter((userInfo) => userInfo.id === user);
   console.log(matchingUser);
-  /* TRAINING PLANS */
+
   const [trainings, setTrainings] = useState([]);
 
   useEffect(
@@ -118,6 +118,8 @@ function App() {
     []
   );
   console.log(todo);
+  const myTodos = todo.filter((element) => element.uploadedBy === user);
+  console.log(myTodos);
 
   /* MEALS */
 
@@ -130,13 +132,15 @@ function App() {
     []
   );
   console.log(meals);
+  const myMeals = meals.filter((meal) => meal.uploadedBy === user);
+  console.log(myMeals);
 
   /* MEALS COUNTER */
 
   let allCalorie = 0;
   let allProtein = 0;
 
-  meals.map((meal) => {
+  myMeals.map((meal) => {
     allCalorie += Number(meal.calorie);
     allProtein += Number(meal.protein);
   });
@@ -156,11 +160,11 @@ function App() {
       <Route path="/register" component={RegisterInfo} exact />
       <PrivateRoute path="/dashboard" exact>
         <Dashboard
-          matchingUser={matchingUser}
-          todo={todo}
+          todo={myTodos}
           trainings={trainings}
           todayGoal={todayGoal}
           users={users}
+          matchingUser={matchingUser}
         />
       </PrivateRoute>
       <PrivateRoute path="/dashboard/training" exact>
@@ -170,11 +174,11 @@ function App() {
         <TrainingDetails trainings={trainings} matchingUser={matchingUser} />
       </PrivateRoute>
       <PrivateRoute path="/dashboard/todo" exact>
-        <ToDo todo={todo} matchingUser={matchingUser} />
+        <ToDo todo={myTodos} matchingUser={matchingUser} />
       </PrivateRoute>
       <PrivateRoute path="/dashboard/meal" exact>
         <Meal
-          meals={meals}
+          meals={myMeals}
           matchingUser={matchingUser}
           allCalorie={allCalorie}
           allProtein={allProtein}

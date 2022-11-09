@@ -8,7 +8,6 @@ const Trainingplan = ({ trainings,matchingUser }) => {
   const [endSlice, setEndSlice] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const user = localStorage.getItem("loggedInUser");
 
   const previousPage = () => {
     setStartSlice(startSlice - 6);

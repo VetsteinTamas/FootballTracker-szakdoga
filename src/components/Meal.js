@@ -23,6 +23,7 @@ const Meal = ({ meals, allCalorie, allProtein, todayGoal, matchingUser }) => {
       name: name,
       calorie: calorie,
       protein: protein,
+      uploadedBy: user,
     });
   };
   return (

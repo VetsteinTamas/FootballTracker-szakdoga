@@ -7,9 +7,6 @@ import { db } from "../firebase";
 import Modal from "./Modal";
 
 const ToDo = ({ todo,matchingUser }) => {
-  console.log(todo);
-  const user = localStorage.getItem("loggedInUser");
-
   const [isOpen, setIsOpen] = useState(false);
 
   const deleteTodo = async (index) => {
