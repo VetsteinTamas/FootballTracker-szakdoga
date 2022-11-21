@@ -68,13 +68,6 @@ const ToDo = ({ todo,matchingUser }) => {
                 </span>
               </li>
             </ul>
-            <p className="menu__low">
-              <FontAwesomeIcon
-                icon="fa-solid fa-gear"
-                className="menu__fonticon"
-              />
-              Beállítások
-            </p>
           </div>
         </div>
         <div className="statistics">

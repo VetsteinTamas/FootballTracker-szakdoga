@@ -356,7 +356,6 @@ LOGIN
   cursor: pointer;
 }
 
-
 .google__form--title {
   color: black;
   margin-left: 12px;
@@ -875,7 +874,7 @@ training plans
 .plans {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-top: 20px;
 }
 
@@ -1344,4 +1343,143 @@ TODO
   color: black;
   padding: 6px 12px;
   border-radius: 20px;
+}
+
+/*MEDIA */
+
+@media (max-width: 720px) {
+  .container {
+    padding: 28px 0;
+  }
+
+  .row__column {
+    width: 90%;
+  }
+  .logo__text {
+    font-size: 20px;
+  }
+
+  .nav__item {
+    font-size: 12px;
+  }
+  .area__title {
+    font-size: 50px;
+  }
+  .feature {
+    width: 50%;
+  }
+  .features__para {
+    font-size: 14px;
+  }
+  .steps__textarea {
+    width: 90%;
+  }
+
+  .steps__img--container {
+    width: 0%;
+  }
+  .row {
+    align-items: center;
+    justify-content: center;
+  }
+  .footer__logo {
+    font-size: 38px;
+  }
+  .footer__rights {
+    font-size: 12px;
+  }
+  .btn {
+    font-size: 18px;
+    padding: 18px;
+  }
+  .menu__item {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .login__image {
+    width: 0%;
+  }
+  .login__form--container {
+    width: 100%;
+  }
+  .area__title {
+    text-align: center;
+  }
+  .area__right {
+    width: 0%;
+  }
+  .area__img {
+    display: none;
+  }
+  .area__left {
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+  }
+  .area__description {
+    font-size: 18px;
+    text-align: center;
+  }
+  .feature__title {
+    text-align: center;
+  }
+  .dash__row {
+    flex-direction: column;
+  }
+  .menu {
+    flex-direction: row;
+    width: 100%;
+  }
+  .menu__items {
+    width: 100%;
+  }
+  .menu__items--list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .menu__item {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    margin: 12px 0;
+  }
+
+  .menu__low {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .nav__container {
+    width: 90%;
+  }
+  .row {
+    width: 90%;
+  }
+  .scroll__icon {
+    display: none;
+  }
+  .container,
+  .container__dash {
+    min-height: 90vh;
+  }
+  .plan {
+    width: 45%;
+  }
+  .statistic__number {
+    font-size: 32px;
+  }
+  .statistic__subtitle {
+    font-size: 16px;
+  }
 }

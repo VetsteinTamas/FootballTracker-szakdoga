@@ -1,7 +1,4 @@
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import app from "../firebase";
@@ -32,7 +29,7 @@ const RegisterInfo = () => {
         console.log(user);
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("loggedInUser", email);
-        history.push("/login");
+        history.go("/login");
       })
       .catch((error) => {
         /* const errorCode = error.code; */
@@ -40,8 +37,6 @@ const RegisterInfo = () => {
       });
     UserinfoDataService.setUserinfo(email, newUserinfo);
   };
-
-  
 
   return (
     <div className="container container__register">

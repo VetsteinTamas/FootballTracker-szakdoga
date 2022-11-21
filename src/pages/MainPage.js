@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
 const MainPage = () => {
+  const loggedIn = localStorage.getItem("loggedIn");
+  console.log(loggedIn);
   return (
     <>
       <section className="landing">
@@ -19,17 +21,27 @@ const MainPage = () => {
                   Vedd kezedbe a céljaid irányítását. Kövess nyomon
                   edzésterveket, motivációs tartalmakat és étrendeket.
                 </p>
-                <button className="btn">
-                  <Link to="/register" className="link__fixer">
-                    Kezd el még ma ingyen!
-                  </Link>
-                </button>
-                <p className="area__description">
-                  <Link to="/login" className="link__fixer">
-                    Van már profilod?{" "}
-                    <span className="blue">Jelentkezz be!</span>
-                  </Link>
-                </p>
+                {loggedIn === "true" ? (
+                  <button className="btn">
+                    <Link to="/dashboard" className="link__fixer">
+                      Ugrás a kezelőfelületre!
+                    </Link>
+                  </button>
+                ) : (
+                  <>
+                    <button className="btn">
+                      <Link to="/register" className="link__fixer">
+                        Kezd el még ma ingyen!
+                      </Link>
+                    </button>
+                    <p className="area__description">
+                      <Link to="/login" className="link__fixer">
+                        Van már profilod?{" "}
+                        <span className="blue">Jelentkezz be!</span>
+                      </Link>
+                    </p>
+                  </>
+                )}
               </div>
               <div className="area__right">
                 <img

@@ -81,13 +81,6 @@ const TrainingDetails = ({ trainings, matchingUser }) => {
                 </Link>
               </li>
             </ul>
-            <p className="menu__low">
-              <FontAwesomeIcon
-                icon="fa-solid fa-gear"
-                className="menu__fonticon"
-              />
-              Beállítások
-            </p>
           </div>
         </div>
         {/* <Switch>
@@ -125,14 +118,14 @@ const TrainingDetails = ({ trainings, matchingUser }) => {
                       icon="fa-solid fa-fire"
                       className="stat__icon"
                     />
-                    {trainings[id].calorie}kalória
+                    {trainings[id].calorie} kalória
                   </div>
                   <div className="stat">
                     <FontAwesomeIcon
                       icon="fa-solid fa-person-running"
                       className="stat__icon"
                     />
-                    Futás
+                    {trainings[id].type}
                   </div>
                 </div>
               </div>

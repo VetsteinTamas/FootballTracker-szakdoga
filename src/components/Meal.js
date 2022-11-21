@@ -80,13 +80,6 @@ const Meal = ({ meals, allCalorie, allProtein, todayGoal, matchingUser }) => {
                 </Link>
               </li>
             </ul>
-            <p className="menu__low">
-              <FontAwesomeIcon
-                icon="fa-solid fa-gear"
-                className="menu__fonticon"
-              />
-              Beállítások
-            </p>
           </div>
         </div>
         {/* <Switch>

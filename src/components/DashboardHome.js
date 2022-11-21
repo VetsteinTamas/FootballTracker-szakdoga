@@ -5,18 +5,22 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 const DashboardHome = ({ todo, trainings, todayGoal }) => {
+  const user = localStorage.getItem("loggedInUser");
   const trainingArrayUndone = trainings.filter(
-    (training) => training.done === false
+    (training) => !training.doneBy.includes(user)
   );
+  console.log(trainingArrayUndone);
 
   let randomUndoneTraining =
     trainingArrayUndone[Math.floor(Math.random() * trainingArrayUndone.length)];
 
-  const trainingArray = trainings.filter((training) => training.done === true);
+  const trainingArray = trainings.filter((training) =>
+    training.doneBy.includes(user)
+  );
 
   let calorieBurnt = 0;
   trainingArray.map((training) => {
-    calorieBurnt += training.calorie;
+    calorieBurnt += Number(training.calorie);
   });
   console.log(calorieBurnt);
 
@@ -202,7 +206,7 @@ const DashboardHome = ({ todo, trainings, todayGoal }) => {
                     </span>
                   </li>
                   <li className="suggestion__item">
-                    Pozíció:{" "}
+                    Játékosok száma:{" "}
                     <span className="bold">
                       {randomUndoneTraining.position}
                     </span>

@@ -7,8 +7,6 @@ import {
 } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 import UserinfoDataService from "../services/users.services.js";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../firebase.js";
 
 const Login = () => {
   const history = useHistory();
@@ -46,9 +44,8 @@ const Login = () => {
         setName(re.user.displayName);
         setEmail(re.user.email);
         console.log(name, email);
-        window.location.reload(false);
+        window.location.reload();
         UserinfoDataService.setUserinfo(email, newUserinfo);
-        history.push("/dashboard");
       })
       .catch((err) => {
         console.log(err);

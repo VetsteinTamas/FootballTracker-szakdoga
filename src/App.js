@@ -40,6 +40,7 @@ import Dashboard from "./pages/Dashboard";
 import TrainingDetails from "./components/TrainingDetails";
 import Trainingplan from "./components/Trainingplan";
 import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute2 from "./components/PrivateRoute2";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./firebase.js";
 import { useEffect, useState } from "react";
@@ -155,9 +156,13 @@ function App() {
   return (
     <Router>
       <Nav />
-      <Route path="/login" component={Login} exact />
+      <PrivateRoute2 path="/login" exact>
+        <Login />
+      </PrivateRoute2>
       <Route path="/" component={MainPage} exact />
-      <Route path="/register" component={RegisterInfo} exact />
+      <PrivateRoute2 path="/register" exact>
+        <RegisterInfo />
+      </PrivateRoute2>
       <PrivateRoute path="/dashboard" exact>
         <Dashboard
           todo={myTodos}

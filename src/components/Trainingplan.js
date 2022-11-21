@@ -3,11 +3,10 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Trainingplan = ({ trainings,matchingUser }) => {
+const Trainingplan = ({ trainings, matchingUser }) => {
   const [startSlice, setStartSlice] = useState(0);
   const [endSlice, setEndSlice] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
-
 
   const previousPage = () => {
     setStartSlice(startSlice - 6);
@@ -62,7 +61,7 @@ const Trainingplan = ({ trainings,matchingUser }) => {
                   className="menu__fonticon"
                 />
                 <Link to="/dashboard/meal" className="link">
-                Étrend összegző
+                  Étrend összegző
                 </Link>
               </li>
               <li className="menu__item">
@@ -75,13 +74,6 @@ const Trainingplan = ({ trainings,matchingUser }) => {
                 </Link>
               </li>
             </ul>
-            <p className="menu__low">
-              <FontAwesomeIcon
-                icon="fa-solid fa-gear"
-                className="menu__fonticon"
-              />
-              Beállítások
-            </p>
           </div>
         </div>
         <div className="statistics">
@@ -141,7 +133,9 @@ const Trainingplan = ({ trainings,matchingUser }) => {
                                 icon="fa-solid fa-angle-right"
                                 className="plan__icon"
                               />
-                              <h3 className="plan__title">30 perc</h3>
+                              <h3 className="plan__title">
+                                {training.duration} perc
+                              </h3>
                             </div>
                           </div>
                         </div>

@@ -58,13 +58,6 @@ const Dashboard = ({ todo, trainings, todayGoal, matchingUser }) => {
                 </Link>
               </li>
             </ul>
-            <p className="menu__low">
-              <FontAwesomeIcon
-                icon="fa-solid fa-gear"
-                className="menu__fonticon"
-              />
-              Beállítások
-            </p>
           </div>
         </div>
         <DashboardHome
