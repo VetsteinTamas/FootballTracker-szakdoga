@@ -191,9 +191,9 @@ FEATURE
   gap: 20px;
   line-height: 2;
   justify-content: center;
-  width: calc(100% / 3);
+  width: 50%;
   padding: 20px;
-  height: 280px;
+  height: 160px;
 }
 
 .icon {
