@@ -6,10 +6,10 @@ import "react-circular-progressbar/dist/styles.css";
 
 const DashboardHome = ({ todo, trainings, todayGoal }) => {
   const user = localStorage.getItem("loggedInUser");
+  
   const trainingArrayUndone = trainings.filter(
     (training) => !training.doneBy.includes(user)
   );
-  console.log(trainingArrayUndone);
 
   let randomUndoneTraining =
     trainingArrayUndone[Math.floor(Math.random() * trainingArrayUndone.length)];
@@ -22,15 +22,17 @@ const DashboardHome = ({ todo, trainings, todayGoal }) => {
   trainingArray.map((training) => {
     calorieBurnt += Number(training.calorie);
   });
-  console.log(calorieBurnt);
 
   const trainingPercentage = (
     (trainingArray.length / trainings.length) *
     100
   ).toFixed(0);
+
   const todayGoalFixed = (todayGoal * 100).toFixed(0);
+
   let todoPercentage = 0;
   todo.length === 0 ? (todoPercentage = 100) : (todoPercentage = 0);
+  
   const value =
     (Number(todayGoalFixed) +
       Number(trainingPercentage) +

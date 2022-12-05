@@ -91,10 +91,8 @@ function App() {
       ),
     []
   );
-  console.log(users);
   const user = localStorage.getItem("loggedInUser");
   const matchingUser = users.filter((userInfo) => userInfo.id === user);
-  console.log(matchingUser);
 
   const [trainings, setTrainings] = useState([]);
 
@@ -107,34 +105,29 @@ function App() {
       ),
     []
   );
-  console.log(trainings);
 
   /* TO DOS */
   const [todo, setTodo] = useState([]);
   useEffect(
     () =>
-      onSnapshot(collection(db, "todo"), (snapshot) =>
-        setTodo(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-      ),
+    onSnapshot(collection(db, "todo"), (snapshot) =>
+    setTodo(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    ),
     []
-  );
-  console.log(todo);
-  const myTodos = todo.filter((element) => element.uploadedBy === user);
-  console.log(myTodos);
-
-  /* MEALS */
-
-  const [meals, setMeals] = useState([]);
-  useEffect(
-    () =>
+    );
+    const myTodos = todo.filter((element) => element.uploadedBy === user);
+    
+    /* MEALS */
+    
+    const [meals, setMeals] = useState([]);
+    useEffect(
+      () =>
       onSnapshot(collection(db, "meals"), (snapshot) =>
-        setMeals(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      setMeals(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
       ),
-    []
-  );
-  console.log(meals);
-  const myMeals = meals.filter((meal) => meal.uploadedBy === user);
-  console.log(myMeals);
+      []
+      );
+      const myMeals = meals.filter((meal) => meal.uploadedBy === user);
 
   /* MEALS COUNTER */
 
@@ -147,7 +140,6 @@ function App() {
   });
 
   let todayGoal = (allCalorie / 2000 + allProtein / 70) / 2;
-  console.log(todayGoal);
 
   if (todayGoal > 1) {
     todayGoal = 1;

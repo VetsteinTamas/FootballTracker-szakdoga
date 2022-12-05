@@ -18,22 +18,19 @@ const RegisterInfo = () => {
     name,
   };
 
-  console.log(newUserinfo);
-  console.log(UserinfoDataService);
-
   const signUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("loggedInUser", email);
-        history.go("/login");
+        history.go("/");
       })
       .catch((error) => {
         /* const errorCode = error.code; */
         // ..
+        console.log(error);
       });
     UserinfoDataService.setUserinfo(email, newUserinfo);
   };

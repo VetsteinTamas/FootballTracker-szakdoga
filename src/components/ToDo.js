@@ -81,7 +81,6 @@ const ToDo = ({ todo,matchingUser }) => {
             {todo.length !== 0 ? (
               <div className="plans">
                 {todo.map((element) => {
-                  console.log(element.id);
                   let month = element.time.toDate().getUTCMonth() + 1; //months from 1-12
                   let day = element.time.toDate().getUTCDate();
                   let year = element.time.toDate().getUTCFullYear();

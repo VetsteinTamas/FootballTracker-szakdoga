@@ -81,7 +81,6 @@ const Trainingplan = ({ trainings, matchingUser }) => {
             <div className="plans">
               {trainings
                 .map((training, index) => {
-                  console.log(index);
                   return (
                     <div className="plan">
                       <Link

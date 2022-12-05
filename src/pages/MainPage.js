@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 
 const MainPage = () => {
   const loggedIn = localStorage.getItem("loggedIn");
-  console.log(loggedIn);
   return (
     <>
       <section className="landing">

@@ -21,7 +21,7 @@ const Login = () => {
         // Signed in
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("loggedInUser", email);
-        history.push("/dashboard");
+        history.push("/");
         window.location.reload(false);
         // ...
       })
@@ -43,7 +43,6 @@ const Login = () => {
         localStorage.setItem("loggedInUser", re.user.email);
         setName(re.user.displayName);
         setEmail(re.user.email);
-        console.log(name, email);
         window.location.reload();
         UserinfoDataService.setUserinfo(email, newUserinfo);
       })

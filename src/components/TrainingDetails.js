@@ -10,10 +10,8 @@ const TrainingDetails = ({ trainings, matchingUser }) => {
   const doneBy = trainings[id].doneBy;
 
   const [isDoneBy, setIsDoneBy] = useState(doneBy);
-  console.log(isDoneBy);
   const trainingDoc = doc(db, "trainings", trainings[id].id);
   const handleDone = async () => {
-    console.log(isDoneBy);
     if (doneBy.includes(user)) {
       let index = doneBy.indexOf(user);
       doneBy.splice(index, 1);
@@ -23,9 +21,7 @@ const TrainingDetails = ({ trainings, matchingUser }) => {
     await updateDoc(trainingDoc, {
       doneBy: doneBy,
     });
-    console.log(doneBy);
   };
-  console.log(doneBy);
 
   return (
     <div className="container__dash">
