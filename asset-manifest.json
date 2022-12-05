@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/FootballTracker-szakdoga/static/css/main.7f6b27cd.css",
+    "main.js": "/FootballTracker-szakdoga/static/js/main.122f0334.js",
+    "index.html": "/FootballTracker-szakdoga/index.html",
+    "main.7f6b27cd.css.map": "/FootballTracker-szakdoga/static/css/main.7f6b27cd.css.map",
+    "main.122f0334.js.map": "/FootballTracker-szakdoga/static/js/main.122f0334.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7f6b27cd.css",
+    "static/js/main.122f0334.js"
+  ]
+}
